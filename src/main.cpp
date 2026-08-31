@@ -1,22 +1,28 @@
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <iostream>
 
 int main()
 {
     glfwInit();
-    
+
     GLFWwindow* window = glfwCreateWindow(
         800,
-        1200,
-        "Planet Engine custom",
+        600,
+        "Planet Engine",
         nullptr,
         nullptr
     );
 
-    std::cout << 'n';
+    glfwMakeContextCurrent(window);
+
+    gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 
     while (!glfwWindowShouldClose(window))
     {
+        glClearColor(0.2f, 0.4f, 0.8f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        glfwSwapBuffers(window);
         glfwPollEvents();
     }
 
