@@ -12,7 +12,7 @@ int main()
     glfwWindowHint(GLFW_DEPTH_BITS, 24);
 
     GLFWwindow* window = glfwCreateWindow(
-        800,
+        600,
         600,
         "Planet Engine",
         nullptr,
