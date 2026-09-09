@@ -1,5 +1,6 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include "geometry/cube.hpp"
 
 int main()
 {
@@ -110,73 +111,10 @@ int main()
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
 
-    float vertices[] =
-    {
-        // FRONT — красный
-
-        -0.5f, -0.5f,  0.5f,   1.0f, 0.0f, 0.0f,
-         0.5f, -0.5f,  0.5f,   1.0f, 0.0f, 0.0f,
-         0.5f,  0.5f,  0.5f,   1.0f, 0.0f, 0.0f,
-
-         0.5f,  0.5f,  0.5f,   1.0f, 0.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f,   1.0f, 0.0f, 0.0f,
-        -0.5f, -0.5f,  0.5f,   1.0f, 0.0f, 0.0f,
-
-
-        // BACK — синий
-
-        -0.5f, -0.5f, -0.5f,   0.0f, 0.0f, 1.0f,
-         0.5f, -0.5f, -0.5f,   0.0f, 0.0f, 1.0f,
-         0.5f,  0.5f, -0.5f,   0.0f, 0.0f, 1.0f,
-
-         0.5f,  0.5f, -0.5f,   0.0f, 0.0f, 1.0f,
-        -0.5f,  0.5f, -0.5f,   0.0f, 0.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,   0.0f, 0.0f, 1.0f,
-
-
-        // LEFT — зелёный
-
-        -0.5f, -0.5f, -0.5f,   0.0f, 1.0f, 0.0f,
-        -0.5f, -0.5f,  0.5f,   0.0f, 1.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f,   0.0f, 1.0f, 0.0f,
-
-        -0.5f,  0.5f,  0.5f,   0.0f, 1.0f, 0.0f,
-        -0.5f,  0.5f, -0.5f,   0.0f, 1.0f, 0.0f,
-        -0.5f, -0.5f, -0.5f,   0.0f, 1.0f, 0.0f,
-
-
-        // RIGHT — жёлтый
-
-         0.5f, -0.5f, -0.5f,   1.0f, 1.0f, 0.0f,
-         0.5f, -0.5f,  0.5f,   1.0f, 1.0f, 0.0f,
-         0.5f,  0.5f,  0.5f,   1.0f, 1.0f, 0.0f,
-
-         0.5f,  0.5f,  0.5f,   1.0f, 1.0f, 0.0f,
-         0.5f,  0.5f, -0.5f,   1.0f, 1.0f, 0.0f,
-         0.5f, -0.5f, -0.5f,   1.0f, 1.0f, 0.0f,
-
-
-         // TOP — белый
-
-         -0.5f,  0.5f,  0.5f,   1.0f, 1.0f, 1.0f,
-          0.5f,  0.5f,  0.5f,   1.0f, 1.0f, 1.0f,
-          0.5f,  0.5f, -0.5f,   1.0f, 1.0f, 1.0f,
-
-          0.5f,  0.5f, -0.5f,   1.0f, 1.0f, 1.0f,
-         -0.5f,  0.5f, -0.5f,   1.0f, 1.0f, 1.0f,
-         -0.5f,  0.5f,  0.5f,   1.0f, 1.0f, 1.0f,
-
-
-         // BOTTOM — фиолетовый
-
-         -0.5f, -0.5f, -0.5f,   1.0f, 0.0f, 1.0f,
-          0.5f, -0.5f, -0.5f,   1.0f, 0.0f, 1.0f,
-          0.5f, -0.5f,  0.5f,   1.0f, 0.0f, 1.0f,
-
-          0.5f, -0.5f,  0.5f,   1.0f, 0.0f, 1.0f,
-         -0.5f, -0.5f,  0.5f,   1.0f, 0.0f, 1.0f,
-         -0.5f, -0.5f, -0.5f,   1.0f, 0.0f, 1.0f
-    };
+    const FigureInfo cubeInfo = getFigureInfo({
+        {0.0f, 0.0f, 0.0f},
+        1.2f
+        });
 
     unsigned int VAO;
     unsigned int VBO;
@@ -190,8 +128,8 @@ int main()
 
     glBufferData(
         GL_ARRAY_BUFFER,
-        sizeof(vertices),
-        vertices,
+        cubeInfo.vertices.size() * sizeof(float),
+        cubeInfo.vertices.data(),
         GL_STATIC_DRAW
     );
 
@@ -242,7 +180,7 @@ int main()
         glDrawArrays(
             GL_TRIANGLES,
             0,
-            36
+			cubeInfo.vertexCount
         );
 
         glfwSwapBuffers(window);
