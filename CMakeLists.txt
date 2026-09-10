@@ -32,6 +32,7 @@ add_executable(planet-engine
     src/main.cpp
     external/glad/src/glad.c
     src/geometry/cube.cpp
+    src/geometry/sphere/sphere.cpp
 )
 
 target_include_directories(planet-engine PRIVATE

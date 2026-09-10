@@ -1,6 +1,6 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include "geometry/cube.hpp"
+#include "geometry/sphere/sphere.hpp"
 
 int main()
 {
@@ -111,10 +111,18 @@ int main()
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
 
-    const FigureInfo cubeInfo = getFigureInfo({
+    //const FigureInfo cubeInfo = getFigureInfo({
+    //    {0.0f, 0.0f, 0.0f},
+    //    1.2f
+    //    });
+
+    const SphereInfo sphereInfo = getSphereInfo({
         {0.0f, 0.0f, 0.0f},
-        1.2f
-        });
+        1.0f,
+        40,
+        40
+    });
+
 
     unsigned int VAO;
     unsigned int VBO;
@@ -128,8 +136,8 @@ int main()
 
     glBufferData(
         GL_ARRAY_BUFFER,
-        cubeInfo.vertices.size() * sizeof(float),
-        cubeInfo.vertices.data(),
+        sphereInfo.vertices.size() * sizeof(float),
+        sphereInfo.vertices.data(),
         GL_STATIC_DRAW
     );
 
@@ -180,7 +188,7 @@ int main()
         glDrawArrays(
             GL_TRIANGLES,
             0,
-			cubeInfo.vertexCount
+            sphereInfo.vertexCount
         );
 
         glfwSwapBuffers(window);
