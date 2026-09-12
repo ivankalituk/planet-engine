@@ -3,94 +3,24 @@
 
 #include "geometry/sphere/sphere.hpp"
 #include "graphics/shaders.hpp"
+#include "window/window.hpp"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
 
-void framebufferSizeCallback(
-    GLFWwindow* window,
-    int width,
-    int height
-)
-{
-    glViewport(0, 0, width, height);
-}
-
-
 int main()
 {
-    glm::mat4 model = glm::mat4(1.0f);
-
-    glm::mat4 view = glm::lookAt(
-        glm::vec3(0.0f, 0.0f, 3.0f),
-        glm::vec3(0.0f, 0.0f, 0.0f),
-        glm::vec3(0.0f, 1.0f, 0.0f)
-    );
-
-    glfwInit();
-
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_DEPTH_BITS, 24);
-
-    GLFWwindow* window = glfwCreateWindow(
+    GLFWwindow* window = createWindow(
         400,
         600,
-        "Planet Engine",
-        nullptr,
-        nullptr
-    );
-
-    glfwMakeContextCurrent(window);
-
-    gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-
-    glfwSetFramebufferSizeCallback(
-        window,
-        framebufferSizeCallback
+        "Planet Engine"
     );
 
 
-    // -------------------------
     // Shaders
-    // -------------------------
-
-    unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
-
-    glShaderSource(
-        vertexShader,
-        1,
-        &vertexShaderSource,
-        nullptr
-    );
-
-    glCompileShader(vertexShader);
-
-
-    unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-
-    glShaderSource(
-        fragmentShader,
-        1,
-        &fragmentShaderSource,
-        nullptr
-    );
-
-    glCompileShader(fragmentShader);
-
-
-    unsigned int shaderProgram = glCreateProgram();
-
-    glAttachShader(shaderProgram, vertexShader);
-    glAttachShader(shaderProgram, fragmentShader);
-
-    glLinkProgram(shaderProgram);
-
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
+    unsigned int shaderProgram = createShaderProgram();
 
 
     // -------------------------
@@ -114,9 +44,18 @@ int main()
 
 
     // -------------------------
-    // Sphere
+    // Model / View
     // -------------------------
 
+    glm::mat4 model = glm::mat4(1.0f);
+
+    glm::mat4 view = glm::lookAt(
+        glm::vec3(0.0f, 0.0f, 3.0f),
+        glm::vec3(0.0f, 0.0f, 0.0f),
+        glm::vec3(0.0f, 1.0f, 0.0f)
+    );
+
+    // Sphere
     const SphereInfo sphereInfo = getSphereInfo({
         {0.0f, 0.0f, 0.0f},
         1.0f,
@@ -125,10 +64,7 @@ int main()
         });
 
 
-    // -------------------------
     // Buffers
-    // -------------------------
-
     unsigned int VAO;
     unsigned int VBO;
 
@@ -146,6 +82,7 @@ int main()
         GL_STATIC_DRAW
     );
 
+
     // Position
     glVertexAttribPointer(
         0,
@@ -157,6 +94,7 @@ int main()
     );
 
     glEnableVertexAttribArray(0);
+
 
     // Color
     glVertexAttribPointer(
@@ -173,10 +111,7 @@ int main()
     glEnable(GL_DEPTH_TEST);
 
 
-    // -------------------------
     // Render loop
-    // -------------------------
-
     while (!glfwWindowShouldClose(window))
     {
         int width;
@@ -211,6 +146,7 @@ int main()
 
         glUseProgram(shaderProgram);
 
+
         glUniformMatrix4fv(
             modelLocation,
             1,
@@ -232,6 +168,7 @@ int main()
             glm::value_ptr(projection)
         );
 
+
         glBindVertexArray(VAO);
 
         glDrawArrays(
@@ -239,6 +176,7 @@ int main()
             0,
             sphereInfo.vertexCount
         );
+
 
         glfwSwapBuffers(window);
         glfwPollEvents();
