@@ -42,6 +42,8 @@ add_executable(planet-engine
     src/geometry/cube/cube.cpp
     src/geometry/sphere/sphere.cpp
     src/graphics/shaders.cpp
+    src/camera/camera.cpp
+    src/window/window.cpp
 )
 
 target_include_directories(planet-engine PRIVATE

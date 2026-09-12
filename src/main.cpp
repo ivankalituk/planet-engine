@@ -1,6 +1,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "camera/camera.hpp"
 #include "geometry/sphere/sphere.hpp"
 #include "graphics/shaders.hpp"
 #include "window/window.hpp"
@@ -19,7 +20,10 @@ int main()
     );
 
 
+    // -------------------------
     // Shaders
+    // -------------------------
+
     unsigned int shaderProgram = createShaderProgram();
 
 
@@ -44,18 +48,23 @@ int main()
 
 
     // -------------------------
-    // Model / View
+    // Camera
+    // -------------------------
+
+    Camera camera;
+
+
+    // -------------------------
+    // Model
     // -------------------------
 
     glm::mat4 model = glm::mat4(1.0f);
 
-    glm::mat4 view = glm::lookAt(
-        glm::vec3(0.0f, 0.0f, 3.0f),
-        glm::vec3(0.0f, 0.0f, 0.0f),
-        glm::vec3(0.0f, 1.0f, 0.0f)
-    );
 
+    // -------------------------
     // Sphere
+    // -------------------------
+
     const SphereInfo sphereInfo = getSphereInfo({
         {0.0f, 0.0f, 0.0f},
         1.0f,
@@ -64,7 +73,10 @@ int main()
         });
 
 
+    // -------------------------
     // Buffers
+    // -------------------------
+
     unsigned int VAO;
     unsigned int VBO;
 
@@ -111,7 +123,10 @@ int main()
     glEnable(GL_DEPTH_TEST);
 
 
+    // -------------------------
     // Render loop
+    // -------------------------
+
     while (!glfwWindowShouldClose(window))
     {
         int width;
@@ -130,6 +145,8 @@ int main()
             0.1f,
             100.0f
         );
+
+        glm::mat4 view = camera.getViewMatrix();
 
 
         glClearColor(

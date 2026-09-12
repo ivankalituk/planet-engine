@@ -1,5 +1,3 @@
-#include <window.hpp>
-
 #include "window.hpp"
 
 #include <glad/glad.h>
