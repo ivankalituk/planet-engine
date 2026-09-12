@@ -1,10 +1,29 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+
 #include "geometry/sphere/sphere.hpp"
 #include "graphics/shaders.hpp"
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 int main()
 {
+    glm::mat4 model = glm::mat4(1.0f);
+
+    glm::mat4 view = glm::lookAt(
+        glm::vec3(0.0f, 0.0f, 3.0f),
+        glm::vec3(0.0f, 0.0f, 0.0f),
+        glm::vec3(0.0f, 1.0f, 0.0f)
+    );
+
+    glm::mat4 projection = glm::perspective(
+        glm::radians(45.0f),
+        600.0f / 600.0f,
+        0.1f,
+        100.0f
+    );
 
     glfwInit();
 
@@ -24,6 +43,10 @@ int main()
     glfwMakeContextCurrent(window);
 
     gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+
+    // -------------------------
+    // Shaders
+    // -------------------------
 
     unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
 
@@ -59,13 +82,42 @@ int main()
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
 
+
+    // -------------------------
+    // Uniform locations
+    // -------------------------
+
+    int modelLocation = glGetUniformLocation(
+        shaderProgram,
+        "model"
+    );
+
+    int viewLocation = glGetUniformLocation(
+        shaderProgram,
+        "view"
+    );
+
+    int projectionLocation = glGetUniformLocation(
+        shaderProgram,
+        "projection"
+    );
+
+
+    // -------------------------
+    // Sphere
+    // -------------------------
+
     const SphereInfo sphereInfo = getSphereInfo({
         {0.0f, 0.0f, 0.0f},
         1.0f,
-        10,
-        10
-    });
+        40,
+        40
+        });
 
+
+    // -------------------------
+    // Buffers
+    // -------------------------
 
     unsigned int VAO;
     unsigned int VBO;
@@ -110,6 +162,11 @@ int main()
 
     glEnable(GL_DEPTH_TEST);
 
+
+    // -------------------------
+    // Render loop
+    // -------------------------
+
     while (!glfwWindowShouldClose(window))
     {
         glClearColor(
@@ -126,6 +183,27 @@ int main()
 
         glUseProgram(shaderProgram);
 
+        glUniformMatrix4fv(
+            modelLocation,
+            1,
+            GL_FALSE,
+            glm::value_ptr(model)
+        );
+
+        glUniformMatrix4fv(
+            viewLocation,
+            1,
+            GL_FALSE,
+            glm::value_ptr(view)
+        );
+
+        glUniformMatrix4fv(
+            projectionLocation,
+            1,
+            GL_FALSE,
+            glm::value_ptr(projection)
+        );
+
         glBindVertexArray(VAO);
 
         glDrawArrays(
@@ -137,6 +215,7 @@ int main()
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
+
 
     // -------------------------
     // Cleanup

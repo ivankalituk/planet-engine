@@ -14,6 +14,7 @@ const char* fragmentShaderSource = R"(
     }
 )";
 
+
 const char* vertexShaderSource = R"(
     #version 330 core
 
@@ -22,29 +23,17 @@ const char* vertexShaderSource = R"(
 
     out vec3 color;
 
+    uniform mat4 model;
+    uniform mat4 view;
+    uniform mat4 projection;
+
     void main()
     {
-        float angleY = 0.6;
-        float angleX = 0.4;
-
-        float x = aPos.x;
-        float y = aPos.y;
-        float z = aPos.z;
-
-        // Поворот вокруг Y
-        float rotatedX = x * cos(angleY) + z * sin(angleY);
-        float rotatedZ = -x * sin(angleY) + z * cos(angleY);
-
-        // Поворот вокруг X
-        float finalY = y * cos(angleX) - rotatedZ * sin(angleX);
-        float finalZ = y * sin(angleX) + rotatedZ * cos(angleX);
-
-        gl_Position = vec4(
-            rotatedX,
-            finalY,
-            finalZ,
-            1.0
-        );
+        gl_Position =
+            projection *
+            view *
+            model *
+            vec4(aPos, 1.0);
 
         color = aColor;
     }
