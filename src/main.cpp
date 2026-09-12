@@ -8,6 +8,17 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+
+void framebufferSizeCallback(
+    GLFWwindow* window,
+    int width,
+    int height
+)
+{
+    glViewport(0, 0, width, height);
+}
+
+
 int main()
 {
     glm::mat4 model = glm::mat4(1.0f);
@@ -18,13 +29,6 @@ int main()
         glm::vec3(0.0f, 1.0f, 0.0f)
     );
 
-    glm::mat4 projection = glm::perspective(
-        glm::radians(45.0f),
-        600.0f / 600.0f,
-        0.1f,
-        100.0f
-    );
-
     glfwInit();
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -33,7 +37,7 @@ int main()
     glfwWindowHint(GLFW_DEPTH_BITS, 24);
 
     GLFWwindow* window = glfwCreateWindow(
-        600,
+        400,
         600,
         "Planet Engine",
         nullptr,
@@ -43,6 +47,12 @@ int main()
     glfwMakeContextCurrent(window);
 
     gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+
+    glfwSetFramebufferSizeCallback(
+        window,
+        framebufferSizeCallback
+    );
+
 
     // -------------------------
     // Shaders
@@ -169,6 +179,24 @@ int main()
 
     while (!glfwWindowShouldClose(window))
     {
+        int width;
+        int height;
+
+        glfwGetFramebufferSize(
+            window,
+            &width,
+            &height
+        );
+
+        glm::mat4 projection = glm::perspective(
+            glm::radians(45.0f),
+            static_cast<float>(width) /
+            static_cast<float>(height),
+            0.1f,
+            100.0f
+        );
+
+
         glClearColor(
             0.2f,
             0.4f,
