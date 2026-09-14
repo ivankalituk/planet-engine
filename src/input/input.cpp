@@ -2,43 +2,35 @@
 
 #include <iostream>
 
-void processInput(GLFWwindow* window)
+void processInput(GLFWwindow* window, double deltaTime, Camera& camera)
 {
-    static bool wasPressed = false;
+    constexpr float speed = 1.0f;
 
-    bool isPressed =
-        glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS;
-
-    if (wasPressed && !isPressed)
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
     {
-        std::cout << "W released" << std::endl;
+        camera.move(
+            glm::vec3(0.0f, speed * deltaTime, 0.0f)
+        );
     }
 
-    wasPressed = isPressed;
-
-
-
-    static bool wasPressedS = false;
-
-    bool isPressedS = glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS;
-
-    if (isPressedS && !wasPressedS) {
-        std::cout << "S pressed" << std::endl;
-    }
-
-    wasPressedS = isPressedS;
-
-
-
-    bool isWPressed = glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS;
-    bool isShiftPressed = glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS;
-    static bool wasBindPressed = false;
-
-
-    if (isWPressed && isShiftPressed && !wasBindPressed)
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
     {
-        std::cout << "Shift + W" << std::endl;
+        camera.move(
+            glm::vec3(0.0f, -speed * deltaTime, 0.0f)
+        );
     }
 
-    wasBindPressed = isWPressed && isShiftPressed;
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+    {
+        camera.move(
+            glm::vec3(-speed * deltaTime, 0.0f, 0.0f)
+        );
+    }
+
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
+    {
+        camera.move(
+            glm::vec3(speed * deltaTime, 0.0f, 0.0f)
+        );
+    }
 }
