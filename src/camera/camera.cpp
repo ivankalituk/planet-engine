@@ -17,3 +17,8 @@ glm::mat4 Camera::getViewMatrix() const
         up
     );
 }
+
+void Camera::move(const glm::vec3& offset)
+{
+    position += offset;
+}

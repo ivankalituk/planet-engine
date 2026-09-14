@@ -1,5 +1,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <iostream>
+
 
 #include "camera/camera.hpp"
 #include "geometry/sphere/sphere.hpp"
@@ -123,13 +125,19 @@ int main()
 
     glEnable(GL_DEPTH_TEST);
 
+    //time
+    double previouseTime = glfwGetTime();
 
-    // -------------------------
     // Render loop
-    // -------------------------
-
     while (!glfwWindowShouldClose(window))
     {
+        double currentTime = glfwGetTime();
+        double deltaTime = currentTime - previouseTime;
+
+        previouseTime = currentTime;
+
+        camera.move(glm::vec3(-0.01f, 0.0f, 0.0f));
+
         processInput(window);
 
         int width;

@@ -9,6 +9,8 @@ public:
 
     glm::mat4 getViewMatrix() const;
 
+    void move(const glm::vec3& offset);
+
 private:
     glm::vec3 position;
     glm::vec3 target;
