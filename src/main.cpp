@@ -5,6 +5,7 @@
 #include "geometry/sphere/sphere.hpp"
 #include "graphics/shaders.hpp"
 #include "window/window.hpp"
+#include "input/input.hpp"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -129,6 +130,8 @@ int main()
 
     while (!glfwWindowShouldClose(window))
     {
+        processInput(window);
+
         int width;
         int height;
 

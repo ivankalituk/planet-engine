@@ -38,12 +38,19 @@ FetchContent_MakeAvailable(glm)
 # Наше приложение
 add_executable(planet-engine
     src/main.cpp
+
     external/glad/src/glad.c
+
     src/geometry/cube/cube.cpp
     src/geometry/sphere/sphere.cpp
+
     src/graphics/shaders.cpp
+
     src/camera/camera.cpp
+
     src/window/window.cpp
+
+    src/input/input.cpp
 )
 
 target_include_directories(planet-engine PRIVATE
