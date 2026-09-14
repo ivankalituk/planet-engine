@@ -15,13 +15,14 @@ A hexagonal grid is then applied over the planet.
 
 ## Current State
 
-The engine base, shaders, and a procedurally generated spherical mesh have been implemented.
+The engine base, shaders, camera and a procedurally generated spherical mesh have been implemented.
 
 ## Planned Features
 
+Add camera orbit controls around the planet
+
 ### Current Plans
 
-* Add a camera
 * Add camera orbit controls around the planet
 * Add mouse-based camera rotation
 * Add camera movement inertia
@@ -46,6 +47,8 @@ The current debug build can be run from:
 * `external/` — GLAD files and configuration
 * `src/graphics/` — shaders and graphics-related code
 * `src/geometry/` — procedural generation of 3D geometry
+* `src/camera/` — camera options and funcs
+* `src/input/` — keyboard controls
 
 ## Roadmap
 

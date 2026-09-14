@@ -127,6 +127,7 @@ int main()
 
     //time
     double previouseTime = glfwGetTime();
+    float speed = -0.1f;
 
     // Render loop
     while (!glfwWindowShouldClose(window))
@@ -136,7 +137,9 @@ int main()
 
         previouseTime = currentTime;
 
-        camera.move(glm::vec3(-0.01f, 0.0f, 0.0f));
+        camera.move(
+            glm::vec3(0.0f, speed * deltaTime, 0.0f)
+        );
 
         processInput(window);
 
