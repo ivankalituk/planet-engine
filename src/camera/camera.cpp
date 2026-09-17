@@ -22,3 +22,8 @@ void Camera::move(const glm::vec3& offset)
 {
     position += offset;
 }
+
+glm::vec3 Camera::getPosition() const
+{
+    return position;
+}
