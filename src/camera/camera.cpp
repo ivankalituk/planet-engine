@@ -70,3 +70,16 @@ glm::vec3 Camera::getRight() const
 {
     return right;
 }
+
+
+/* in the future i shoud make less responsibility for camera*/
+void Camera::zoom(float amount)
+{
+    glm::vec3 direction =
+        glm::normalize(-position);
+
+    glm::vec3 offset =
+        direction * amount;
+
+    position += offset;
+}

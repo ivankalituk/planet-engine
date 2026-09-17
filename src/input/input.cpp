@@ -1,5 +1,4 @@
 #include "input.hpp"
-
 #include <glm/gtc/matrix_transform.hpp>
 
 void processInput(GLFWwindow* window, double deltaTime, Camera& camera)
@@ -51,5 +50,19 @@ void processInput(GLFWwindow* window, double deltaTime, Camera& camera)
             -angle,
             camera.getRight()
         );
+    }
+
+    if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS)
+    {
+        {
+            camera.zoom(0.01f);
+        }
+    }
+
+    if (
+        glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS
+        )
+    {
+        camera.zoom(-0.01f);
     }
 }
