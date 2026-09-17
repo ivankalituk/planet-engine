@@ -12,6 +12,7 @@ public:
     void move(const glm::vec3& offset);
 
     glm::vec3 getPosition() const;
+    glm::vec3 getRight() const;
 
 private:
     glm::vec3 position;

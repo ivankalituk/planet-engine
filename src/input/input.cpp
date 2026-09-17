@@ -1,5 +1,5 @@
 #include "input.hpp"
-
+#include <glm/gtc/matrix_transform.hpp>
 #include <cmath>
 
 void processInput(GLFWwindow* window, double deltaTime, Camera& camera)
@@ -63,17 +63,14 @@ void processInput(GLFWwindow* window, double deltaTime, Camera& camera)
 
         float angle = speed * static_cast<float>(deltaTime);
 
-        glm::vec3 newPosition;
+        glm::vec3 right = camera.getRight();
 
-        newPosition.x = currentPosition.x;
-
-        newPosition.y =
-            currentPosition.y * std::cos(angle) -
-            currentPosition.z * std::sin(angle);
-
-        newPosition.z =
-            currentPosition.y * std::sin(angle) +
-            currentPosition.z * std::cos(angle);
+        glm::vec3 newPosition =
+            glm::rotate(
+                glm::mat4(1.0f),
+                angle,
+                right
+            ) * glm::vec4(currentPosition, 1.0f);
 
         camera.move(newPosition - currentPosition);
     }
@@ -87,17 +84,14 @@ void processInput(GLFWwindow* window, double deltaTime, Camera& camera)
 
         float angle = -speed * static_cast<float>(deltaTime);
 
-        glm::vec3 newPosition;
+        glm::vec3 right = camera.getRight();
 
-        newPosition.x = currentPosition.x;
-
-        newPosition.y =
-            currentPosition.y * std::cos(angle) -
-            currentPosition.z * std::sin(angle);
-
-        newPosition.z =
-            currentPosition.y * std::sin(angle) +
-            currentPosition.z * std::cos(angle);
+        glm::vec3 newPosition =
+            glm::rotate(
+                glm::mat4(1.0f),
+                angle,
+                right
+            ) * glm::vec4(currentPosition, 1.0f);
 
         camera.move(newPosition - currentPosition);
     }

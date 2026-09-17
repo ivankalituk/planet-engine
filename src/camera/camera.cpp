@@ -27,3 +27,13 @@ glm::vec3 Camera::getPosition() const
 {
     return position;
 }
+
+glm::vec3 Camera::getRight() const
+{
+    glm::vec3 forward =
+        glm::normalize(target - position);
+
+    return glm::normalize(
+        glm::cross(forward, up)
+    );
+}
