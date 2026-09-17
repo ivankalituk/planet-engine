@@ -147,6 +147,16 @@ int main()
             &height
         );
 
+        glfwSetWindowUserPointer(
+            window,
+            &camera
+        );
+
+        glfwSetScrollCallback(
+            window,
+            scrollCallback
+        );
+
         glm::mat4 projection = glm::perspective(
             glm::radians(45.0f),
             static_cast<float>(width) /

@@ -1,9 +1,13 @@
 #include "input.hpp"
 #include <glm/gtc/matrix_transform.hpp>
+#include <iostream>
+
+
+constexpr float speed = 1.0f;
+constexpr float zoomSpeed = 0.05f;
 
 void processInput(GLFWwindow* window, double deltaTime, Camera& camera)
 {
-    constexpr float speed = 1.0f;
 
     float angle =
         speed * static_cast<float>(deltaTime);
@@ -55,7 +59,7 @@ void processInput(GLFWwindow* window, double deltaTime, Camera& camera)
     if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS)
     {
         {
-            camera.zoom(0.01f);
+            camera.zoom(zoomSpeed);
         }
     }
 
@@ -63,6 +67,30 @@ void processInput(GLFWwindow* window, double deltaTime, Camera& camera)
         glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS
         )
     {
-        camera.zoom(-0.01f);
+        camera.zoom(-zoomSpeed);
+    }
+}
+
+void scrollCallback(
+    GLFWwindow* window,
+    double xOffset,
+    double yOffset
+)
+{
+    Camera* camera =
+        static_cast<Camera*>(
+            glfwGetWindowUserPointer(window)
+        );
+
+    if (yOffset > 0) {
+        camera->zoom(
+            zoomSpeed
+        );
+    }
+
+    if (yOffset < 0) {
+        camera->zoom(
+            -zoomSpeed
+        );
     }
 }
