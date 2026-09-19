@@ -7,7 +7,8 @@
 #include "geometry/sphere/sphere.hpp"
 #include "graphics/shaders.hpp"
 #include "window/window.hpp"
-#include "input/input.hpp"
+#include "input/keyboard/keyboard.hpp"
+#include "input/scroll/scroll.hpp"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
