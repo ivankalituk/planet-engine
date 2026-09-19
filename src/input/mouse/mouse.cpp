@@ -1,10 +1,14 @@
 #include "mouse.hpp"
-
+#include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
 
-void processMouseInput(GLFWwindow* window)
+void processMouseInput(
+    GLFWwindow* window,
+    const Camera& camera,
+    const glm::mat4& projection
+)
 {
-    static bool isDragging = false;
+    static bool wasPressed = false;
 
     static double previousX = 0.0;
     static double previousY = 0.0;
@@ -17,41 +21,35 @@ void processMouseInput(GLFWwindow* window)
     bool isLeftPressed =
         glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS;
 
-    if (isLeftPressed && !isDragging)
+    if (isLeftPressed && !wasPressed)
     {
-        isDragging = true;
-
         previousX = currentX;
         previousY = currentY;
 
-        std::cout << "Mouse Down: (" << currentX << ", " << currentY << ")\n";
+        int width;
+        int height;
+
+        glfwGetWindowSize(window, &width, &height);
+
+        glm::vec3 screenPoint(
+            static_cast<float>(currentX),
+            static_cast<float>(height) - static_cast<float>(currentY),
+            0.0f
+        );
+
+        glm::vec3 worldPoint = glm::unProject(
+            screenPoint,
+            camera.getViewMatrix(),
+            projection,
+            glm::vec4(0.0f, 0.0f, width, height)
+        );
+
+        std::cout
+            << "World point: ("
+            << worldPoint.x << ", "
+            << worldPoint.y << ", "
+            << worldPoint.z << ")\n";
     }
 
-    if (isDragging)
-    {
-        double deltaX = currentX - previousX;
-        double deltaY = currentY - previousY;
-
-        if (deltaX != 0.0 || deltaY != 0.0)
-        {
-            std::cout
-                << "Move: ("
-                << currentX << ", "
-                << currentY << ") "
-                << "Delta: ("
-                << deltaX << ", "
-                << deltaY << ")"
-                << '\n';
-
-            previousX = currentX;
-            previousY = currentY;
-        }
-    }
-
-    if (!isLeftPressed && isDragging)
-    {
-        isDragging = false;
-
-        std::cout << "Mouse Up: (" << currentX << ", " << currentY << ")\n";
-    }
+    wasPressed = isLeftPressed;
 }

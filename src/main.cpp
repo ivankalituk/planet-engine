@@ -139,7 +139,6 @@ int main()
         previouseTime = currentTime;
 
         processInput(window, deltaTime, camera);
-        processMouseInput(window);
 
         int width;
         int height;
@@ -167,6 +166,8 @@ int main()
             0.1f,
             100.0f
         );
+
+        processMouseInput(window, camera, projection);
 
         glm::mat4 view = camera.getViewMatrix();
 
