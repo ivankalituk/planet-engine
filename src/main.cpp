@@ -9,6 +9,7 @@
 #include "window/window.hpp"
 #include "input/keyboard/keyboard.hpp"
 #include "input/scroll/scroll.hpp"
+#include "input/mouse/mouse.hpp"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -138,6 +139,7 @@ int main()
         previouseTime = currentTime;
 
         processInput(window, deltaTime, camera);
+        processMouseInput(window);
 
         int width;
         int height;

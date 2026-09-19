@@ -50,7 +50,9 @@ add_executable(planet-engine
 
     src/window/window.cpp
 
-    src/input/input.cpp
+    src/input/keyboard/keyboard.cpp
+    src/input/mouse/mouse.cpp
+    src/input/scroll/scroll.cpp
 )
 
 target_include_directories(planet-engine PRIVATE

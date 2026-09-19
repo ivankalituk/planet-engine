@@ -1,6 +1,7 @@
-#include "input.hpp"
+#include "scroll.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
+#include "../../camera/camera.hpp"
 
 constexpr float zoomSpeed = 0.05f;
 
