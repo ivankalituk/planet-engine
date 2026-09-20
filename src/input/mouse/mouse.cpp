@@ -31,6 +31,7 @@ void processMouseInput(
 
         glfwGetWindowSize(window, &width, &height);
 
+        // viewport has inverted OY axis, so i make minus height
         glm::vec3 screenPoint(
             static_cast<float>(currentX),
             static_cast<float>(height) - static_cast<float>(currentY),
