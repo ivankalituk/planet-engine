@@ -10,6 +10,7 @@
 #include "input/keyboard/keyboard.hpp"
 #include "input/scroll/scroll.hpp"
 #include "input/mouse/mouse.hpp"
+#include "solar_system/renderer.hpp"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -75,7 +76,7 @@ int main()
         1.0f,
         40,
         40
-        });
+    });
 
 
     // -------------------------
@@ -171,6 +172,7 @@ int main()
 
         glm::mat4 view = camera.getViewMatrix();
 
+        renderSolarSystem(VBO);
 
         glClearColor(
             0.2f,

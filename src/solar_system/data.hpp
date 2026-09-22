@@ -1,6 +1,6 @@
 #pragma once
 
 #include <vector>
-#include "tpes.hpp"
+#include "types.hpp"
 
 extern const std::vector<CelestialBody> celestialBodies;

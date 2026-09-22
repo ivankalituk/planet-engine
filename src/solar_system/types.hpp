@@ -1,3 +1,6 @@
+#include <glm/glm.hpp>
+#include <string>
+
 struct CelestialBody
 {
     std::string id;

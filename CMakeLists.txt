@@ -53,6 +53,8 @@ add_executable(planet-engine
     src/input/keyboard/keyboard.cpp
     src/input/mouse/mouse.cpp
     src/input/scroll/scroll.cpp
+    src/solar_system/data.cpp
+    src/solar_system/renderer.cpp
 )
 
 target_include_directories(planet-engine PRIVATE
