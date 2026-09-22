@@ -1,6 +1,6 @@
 #include "data.hpp"
 
-const std::vector<Planet> planets = {
+const std::vector<CelestialBody> celestialBodies = {
     {
         .id = "STAR",
         .parentId = "",

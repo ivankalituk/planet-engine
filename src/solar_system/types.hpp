@@ -1,4 +1,4 @@
-struct Planet
+struct CelestialBody
 {
     std::string id;
     std::string parentId;

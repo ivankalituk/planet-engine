@@ -3,4 +3,4 @@
 #include <vector>
 #include "tpes.hpp"
 
-extern const std::vector<Planet> planets;
+extern const std::vector<CelestialBody> celestialBodies;
