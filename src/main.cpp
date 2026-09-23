@@ -2,7 +2,6 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
-
 #include "camera/camera.hpp"
 #include "geometry/sphere/sphere.hpp"
 #include "graphics/shaders.hpp"
@@ -16,7 +15,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-
 int main()
 {
     GLFWwindow* window = createWindow(
@@ -25,81 +23,28 @@ int main()
         "Planet Engine"
     );
 
-
-    // -------------------------
-    // Shaders
-    // -------------------------
-
     unsigned int shaderProgram = createShaderProgram();
 
-
-    // -------------------------
-    // Uniform locations
-    // -------------------------
-
-    int modelLocation = glGetUniformLocation(
-        shaderProgram,
-        "model"
-    );
-
-    int viewLocation = glGetUniformLocation(
-        shaderProgram,
-        "view"
-    );
-
-    int projectionLocation = glGetUniformLocation(
-        shaderProgram,
-        "projection"
-    );
-
-
-    // -------------------------
-    // Camera
-    // -------------------------
+    int modelLocation = glGetUniformLocation(shaderProgram, "model");
+    int viewLocation = glGetUniformLocation(shaderProgram, "view");
+    int projectionLocation = glGetUniformLocation(shaderProgram, "projection");
 
     Camera camera;
 
-
-    // -------------------------
-    // Model
-    // -------------------------
-
     glm::mat4 model = glm::mat4(1.0f);
-
-
-    // -------------------------
-    // Sphere
-    // -------------------------
-
-    const SphereInfo sphereInfo = getSphereInfo({
-        {0.0f, 0.0f, 0.0f},
-        1.0f,
-        40,
-        40
-    });
-
 
     // -------------------------
     // Buffers
     // -------------------------
 
-    unsigned int VAO;
-    unsigned int VBO;
+    GLuint VAO;
+    GLuint VBO = planetBuffer();
 
     glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
 
+    // ВАЖНО: сначала привязываем VAO и VBO
     glBindVertexArray(VAO);
-
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-
-    glBufferData(
-        GL_ARRAY_BUFFER,
-        sphereInfo.vertices.size() * sizeof(float),
-        sphereInfo.vertices.data(),
-        GL_STATIC_DRAW
-    );
-
 
     // Position
     glVertexAttribPointer(
@@ -113,7 +58,6 @@ int main()
 
     glEnableVertexAttribArray(0);
 
-
     // Color
     glVertexAttribPointer(
         1,
@@ -126,44 +70,31 @@ int main()
 
     glEnableVertexAttribArray(1);
 
+    glBindVertexArray(0);
+
     glEnable(GL_DEPTH_TEST);
 
-    //time
-    double previouseTime = glfwGetTime();
+    double previousTime = glfwGetTime();
 
-    // Render loop
     while (!glfwWindowShouldClose(window))
     {
         double currentTime = glfwGetTime();
-        double deltaTime = currentTime - previouseTime;
-
-        previouseTime = currentTime;
+        double deltaTime = currentTime - previousTime;
+        previousTime = currentTime;
 
         processInput(window, deltaTime, camera);
 
         int width;
         int height;
 
-        glfwGetFramebufferSize(
-            window,
-            &width,
-            &height
-        );
+        glfwGetFramebufferSize(window, &width, &height);
 
-        glfwSetWindowUserPointer(
-            window,
-            &camera
-        );
-
-        glfwSetScrollCallback(
-            window,
-            scrollCallback
-        );
+        glfwSetWindowUserPointer(window, &camera);
+        glfwSetScrollCallback(window, scrollCallback);
 
         glm::mat4 projection = glm::perspective(
             glm::radians(45.0f),
-            static_cast<float>(width) /
-            static_cast<float>(height),
+            static_cast<float>(width) / static_cast<float>(height),
             0.1f,
             100.0f
         );
@@ -171,8 +102,6 @@ int main()
         processMouseInput(window, camera, projection);
 
         glm::mat4 view = camera.getViewMatrix();
-
-        renderSolarSystem(VBO);
 
         glClearColor(
             0.2f,
@@ -187,7 +116,6 @@ int main()
         );
 
         glUseProgram(shaderProgram);
-
 
         glUniformMatrix4fv(
             modelLocation,
@@ -210,24 +138,13 @@ int main()
             glm::value_ptr(projection)
         );
 
-
         glBindVertexArray(VAO);
 
-        glDrawArrays(
-            GL_TRIANGLES,
-            0,
-            sphereInfo.vertexCount
-        );
-
+        renderSolarSystem(VBO, modelLocation);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
-
-
-    // -------------------------
-    // Cleanup
-    // -------------------------
 
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);

@@ -1,5 +1,6 @@
 #pragma once
+
 #include <glad/glad.h>
 
-void renderSolarSystem(GLuint VBO);
 GLuint planetBuffer();
+void renderSolarSystem(GLuint VBO, GLint modelLocation);
