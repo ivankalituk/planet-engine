@@ -65,6 +65,6 @@ void renderSolarSystem(GLuint VBO, GLint modelLocation)
             sphereInfo.vertexCount
         );
 
-        currentX += 1.0f;
+        currentX += celestialBodies[i].distanceFromParent;
     }
 }
