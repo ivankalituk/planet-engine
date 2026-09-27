@@ -34,8 +34,6 @@ GLuint planetBuffer()
 
 void renderSolarSystem(GLuint VBO, GLint modelLocation)
 {
-    float currentX = 0.0f;
-
     const SphereInfo sphereInfo = getSphereInfo({
         {0.0f, 0.0f, 0.0f},
         1.0f,
@@ -43,21 +41,20 @@ void renderSolarSystem(GLuint VBO, GLint modelLocation)
         40
     });
 
-    for (std::size_t i = 0; i < celestialBodies.size(); i++)
+    for (std::size_t i = 0; i < celestialBodyStates.size(); i++)
     {
-        CelestialBodyState* state = getBodyState(celestialBodies[i].id);
+        const CelestialBodyState& state = celestialBodyStates[i];
+        const CelestialBody& body = celestialBodies[i];
 
         glm::mat4 model = glm::translate(
             glm::mat4(1.0f),
-            glm::vec3(currentX, 0.0f, 0.0f)
-        );
-        model = glm::scale(
-            model,
-            glm::vec3(celestialBodies[i].radius)
+            state.position
         );
 
-        state->position = glm::vec3(currentX, 0.0f, 0.0f);
-        state->rotationAxis = glm::vec3(celestialBodies[i].orbitAxis);
+        model = glm::scale(
+            model,
+            glm::vec3(body.radius)
+        );
 
         glUniformMatrix4fv(
             modelLocation,
@@ -71,7 +68,5 @@ void renderSolarSystem(GLuint VBO, GLint modelLocation)
             0,
             sphereInfo.vertexCount
         );
-
-        currentX += celestialBodies[i].distanceFromParent;
     }
 }

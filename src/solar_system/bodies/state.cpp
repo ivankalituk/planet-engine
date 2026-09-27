@@ -20,7 +20,6 @@ const CelestialBody* getCelestialBody(const std::string& id)
     return nullptr;
 }
 
-//initial vector array of celestial bodies
 void createCelestialBodyStates()
 {
     for (const CelestialBody& body : celestialBodies)
