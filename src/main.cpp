@@ -105,7 +105,7 @@ int main()
         processMouseInput(window, camera, projection);
 
         glm::mat4 view = camera.getViewMatrix();
-
+        
         glClearColor(
             0.2f,
             0.4f,
@@ -147,6 +147,7 @@ int main()
 
         glfwSwapBuffers(window);
         glfwPollEvents();
+
     }
 
     glDeleteVertexArrays(1, &VAO);

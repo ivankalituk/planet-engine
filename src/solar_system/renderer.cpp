@@ -1,10 +1,12 @@
 #include "renderer.hpp"
 #include "../geometry/sphere/sphere.hpp"
 #include "data.hpp"
+#include "bodies/state.hpp"
 
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+
 
 GLuint planetBuffer()
 {
@@ -43,6 +45,8 @@ void renderSolarSystem(GLuint VBO, GLint modelLocation)
 
     for (std::size_t i = 0; i < celestialBodies.size(); i++)
     {
+        CelestialBodyState* state = getBodyState(celestialBodies[i].id);
+
         glm::mat4 model = glm::translate(
             glm::mat4(1.0f),
             glm::vec3(currentX, 0.0f, 0.0f)
@@ -51,6 +55,9 @@ void renderSolarSystem(GLuint VBO, GLint modelLocation)
             model,
             glm::vec3(celestialBodies[i].radius)
         );
+
+        state->position = glm::vec3(currentX, 0.0f, 0.0f);
+        state->rotationAxis = glm::vec3(celestialBodies[i].orbitAxis);
 
         glUniformMatrix4fv(
             modelLocation,
