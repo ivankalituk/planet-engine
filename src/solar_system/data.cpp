@@ -9,7 +9,8 @@ const std::vector<CelestialBody> celestialBodies = {
         .distanceFromParent = 0.0f,
         .orbitSpeed = 0.0f,
         .selfRotationSpeed = 20.0f,
-        .orbitAxis = {0.0f, 1.0f, 0.0f}
+        .orbitAxis = {0.0f, 1.0f, 0.0f},
+        .rotationAxis = {0.126f, 0.992f, 0.0f}
     },
 
     {
@@ -20,7 +21,8 @@ const std::vector<CelestialBody> celestialBodies = {
         .distanceFromParent = 2.0f,
         .orbitSpeed = 35.0f,
         .selfRotationSpeed = 12.0f,
-        .orbitAxis = {0.0f, 1.0f, 0.0f}
+        .orbitAxis = {0.0f, 1.0f, 0.0f},
+        .rotationAxis = {0.001f, 1.0f, 0.0f}
     },
 
     {
@@ -31,7 +33,8 @@ const std::vector<CelestialBody> celestialBodies = {
         .distanceFromParent = 3.0f,
         .orbitSpeed = 28.0f,
         .selfRotationSpeed = -8.0f,
-        .orbitAxis = {0.0f, 1.0f, 0.0f}
+        .orbitAxis = {0.0f, 1.0f, 0.0f},
+        .rotationAxis = {0.045f, -0.999f, 0.0f}
     },
 
     {
@@ -42,7 +45,8 @@ const std::vector<CelestialBody> celestialBodies = {
         .distanceFromParent = 4.2f,
         .orbitSpeed = 22.0f,
         .selfRotationSpeed = 30.0f,
-        .orbitAxis = {0.0f, 1.0f, 0.0f}
+        .orbitAxis = {0.0f, 1.0f, 0.0f},
+        .rotationAxis = {0.398f, 0.917f, 0.0f}
     },
 
     {
@@ -53,7 +57,8 @@ const std::vector<CelestialBody> celestialBodies = {
         .distanceFromParent = 0.45f,
         .orbitSpeed = 70.0f,
         .selfRotationSpeed = 70.0f,
-        .orbitAxis = {0.0f, 1.0f, 0.0f}
+        .orbitAxis = {0.0f, 1.0f, 0.0f},
+        .rotationAxis = {0.116f, 0.993f, 0.0f}
     },
 
     {
@@ -64,7 +69,8 @@ const std::vector<CelestialBody> celestialBodies = {
         .distanceFromParent = 5.8f,
         .orbitSpeed = 16.0f,
         .selfRotationSpeed = 28.0f,
-        .orbitAxis = {0.0f, 1.0f, 0.0f}
+        .orbitAxis = {0.0f, 1.0f, 0.0f},
+        .rotationAxis = {0.425f, 0.906f, 0.0f}
     },
 
     {
@@ -75,7 +81,8 @@ const std::vector<CelestialBody> celestialBodies = {
         .distanceFromParent = 0.30f,
         .orbitSpeed = 120.0f,
         .selfRotationSpeed = 45.0f,
-        .orbitAxis = {0.0f, 1.0f, 0.0f}
+        .orbitAxis = {0.0f, 1.0f, 0.0f},
+        .rotationAxis = {0.0f, 1.0f, 0.0f}
     },
 
     {
@@ -86,6 +93,7 @@ const std::vector<CelestialBody> celestialBodies = {
         .distanceFromParent = 0.55f,
         .orbitSpeed = 80.0f,
         .selfRotationSpeed = 35.0f,
-        .orbitAxis = {0.0f, 1.0f, 0.0f}
+        .orbitAxis = {0.0f, 1.0f, 0.0f},
+        .rotationAxis = {0.0f, 1.0f, 0.0f}
     }
 };

@@ -2,6 +2,7 @@
 #include "../geometry/sphere/sphere.hpp"
 #include "data.hpp"
 #include "bodies/state.hpp"
+#include <iostream>
 
 #include <glad/glad.h>
 #include <glm/glm.hpp>
@@ -61,7 +62,7 @@ void renderSolarSystem(GLuint VBO, GLint modelLocation, float deltaTime)
         model = glm::rotate(
             model,
             glm::radians(celestialBodyStates[i].rotationAngle),
-            glm::vec3(0.0f, 1.0f, 0.0f)
+            celestialBodies[i].rotationAxis
         );
 
         glUniformMatrix4fv(
