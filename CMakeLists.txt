@@ -55,6 +55,7 @@ add_executable(planet-engine
     src/input/scroll/scroll.cpp
     src/solar_system/data.cpp
     src/solar_system/renderer.cpp
+    src/solar_system/bodies/state.cpp
 )
 
 target_include_directories(planet-engine PRIVATE

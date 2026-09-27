@@ -39,7 +39,7 @@ void renderSolarSystem(GLuint VBO, GLint modelLocation)
         1.0f,
         40,
         40
-        });
+    });
 
     for (std::size_t i = 0; i < celestialBodies.size(); i++)
     {

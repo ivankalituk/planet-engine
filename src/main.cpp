@@ -10,6 +10,7 @@
 #include "input/scroll/scroll.hpp"
 #include "input/mouse/mouse.hpp"
 #include "solar_system/renderer.hpp"
+#include "solar_system/bodies/state.hpp"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -75,6 +76,8 @@ int main()
     glEnable(GL_DEPTH_TEST);
 
     double previousTime = glfwGetTime();
+
+    createCelestialBodyStates();
 
     while (!glfwWindowShouldClose(window))
     {
