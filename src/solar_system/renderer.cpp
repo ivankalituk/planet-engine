@@ -43,7 +43,6 @@ void renderSolarSystem(GLuint VBO, GLint modelLocation, float deltaTime)
     });
 
     updateCelestialBodies(deltaTime);
-
     for (std::size_t i = 0; i < celestialBodyStates.size(); i++)
     {
         const CelestialBodyState& state = celestialBodyStates[i];
@@ -54,15 +53,35 @@ void renderSolarSystem(GLuint VBO, GLint modelLocation, float deltaTime)
             state.position
         );
 
-        model = glm::scale(
-            model,
-            glm::vec3(body.radius)
-        );
+        glm::vec3 localYAxis = { 0.0f, 1.0f, 0.0f };
+        glm::vec3 rotationAxis = glm::normalize(body.rotationAxis);
+
+        float dotProduct = glm::dot(localYAxis, rotationAxis);
+
+        if (dotProduct < 0.9999f)
+        {
+            glm::vec3 tiltAxis = glm::normalize(
+                glm::cross(localYAxis, rotationAxis)
+            );
+
+            float tiltAngle = glm::acos(dotProduct);
+
+            model = glm::rotate(
+                model,
+                tiltAngle,
+                tiltAxis
+            );
+        }
 
         model = glm::rotate(
             model,
-            glm::radians(celestialBodyStates[i].rotationAngle),
-            celestialBodies[i].rotationAxis
+            glm::radians(state.rotationAngle),
+            glm::vec3(0.0f, 1.0f, 0.0f)
+        );
+
+        model = glm::scale(
+            model,
+            glm::vec3(body.radius)
         );
 
         glUniformMatrix4fv(
