@@ -3,4 +3,4 @@
 #include <glad/glad.h>
 
 GLuint planetBuffer();
-void renderSolarSystem(GLuint VBO, GLint modelLocation);
+void renderSolarSystem(GLuint VBO, GLint modelLocation, float deltaTime);

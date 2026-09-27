@@ -32,7 +32,7 @@ GLuint planetBuffer()
     return VBO;
 }
 
-void renderSolarSystem(GLuint VBO, GLint modelLocation)
+void renderSolarSystem(GLuint VBO, GLint modelLocation, float deltaTime)
 {
     const SphereInfo sphereInfo = getSphereInfo({
         {0.0f, 0.0f, 0.0f},
@@ -40,6 +40,8 @@ void renderSolarSystem(GLuint VBO, GLint modelLocation)
         40,
         40
     });
+
+    updateCelestialBodies(deltaTime);
 
     for (std::size_t i = 0; i < celestialBodyStates.size(); i++)
     {
@@ -54,6 +56,12 @@ void renderSolarSystem(GLuint VBO, GLint modelLocation)
         model = glm::scale(
             model,
             glm::vec3(body.radius)
+        );
+
+        model = glm::rotate(
+            model,
+            glm::radians(celestialBodyStates[i].rotationAngle),
+            glm::vec3(0.0f, 1.0f, 0.0f)
         );
 
         glUniformMatrix4fv(

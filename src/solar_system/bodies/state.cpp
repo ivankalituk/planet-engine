@@ -7,12 +7,9 @@
 std::vector<CelestialBodyState> celestialBodyStates;
 
 
-const CelestialBody* getCelestialBody(const std::string& id)
-{
-    for (const CelestialBody& body : celestialBodies)
-    {
-        if (body.id == id)
-        {
+const CelestialBody* getCelestialBody(const std::string& id) {
+    for (const CelestialBody& body : celestialBodies) {
+        if (body.id == id) {
             return &body;
         }
     }
@@ -20,17 +17,16 @@ const CelestialBody* getCelestialBody(const std::string& id)
     return nullptr;
 }
 
-void createCelestialBodyStates()
-{
-    for (const CelestialBody& body : celestialBodies)
-    {
+void createCelestialBodyStates() {
+    for (const CelestialBody& body : celestialBodies) {
         //std::cout << body.id << '\n';
 
         if (body.id == "STAR") {
             celestialBodyStates.push_back({
                 body.id,
                 {0.0f, 0.0f, 0.0f},
-                {0.0f, 1.0f, 0.0f}
+                {0.0f, 1.0f, 0.0f},
+                body.selfRotationSpeed
             });
         }
 
@@ -57,8 +53,7 @@ void createCelestialBodyStates()
     }
 }
 
-CelestialBodyState* getBodyState(const std::string& id)
-{
+CelestialBodyState* getBodyState(const std::string& id) {
     for (CelestialBodyState& state : celestialBodyStates)
     {
         if (state.id == id)
@@ -68,4 +63,12 @@ CelestialBodyState* getBodyState(const std::string& id)
     }
 
     return nullptr;
+}
+
+void updateCelestialBodies(float deltaTime) {
+    for (std::size_t i = 0; i < celestialBodyStates.size(); i++)
+    {
+        celestialBodyStates[i].rotationAngle +=
+            celestialBodies[i].selfRotationSpeed * deltaTime;
+    }
 }

@@ -8,7 +8,7 @@ const std::vector<CelestialBody> celestialBodies = {
         .radius = 1.0f,
         .distanceFromParent = 0.0f,
         .orbitSpeed = 0.0f,
-        .selfRotationSpeed = 0.08f,
+        .selfRotationSpeed = 20.0f,
         .orbitAxis = {0.0f, 1.0f, 0.0f}
     },
 
@@ -18,8 +18,8 @@ const std::vector<CelestialBody> celestialBodies = {
         .name = "Mercury",
         .radius = 0.12f,
         .distanceFromParent = 2.0f,
-        .orbitSpeed = 1.60f,
-        .selfRotationSpeed = 0.02f,
+        .orbitSpeed = 35.0f,
+        .selfRotationSpeed = 12.0f,
         .orbitAxis = {0.0f, 1.0f, 0.0f}
     },
 
@@ -29,8 +29,8 @@ const std::vector<CelestialBody> celestialBodies = {
         .name = "Venus",
         .radius = 0.22f,
         .distanceFromParent = 3.0f,
-        .orbitSpeed = 1.15f,
-        .selfRotationSpeed = -0.01f,
+        .orbitSpeed = 28.0f,
+        .selfRotationSpeed = -8.0f,
         .orbitAxis = {0.0f, 1.0f, 0.0f}
     },
 
@@ -40,8 +40,8 @@ const std::vector<CelestialBody> celestialBodies = {
         .name = "Earth",
         .radius = 0.23f,
         .distanceFromParent = 4.2f,
-        .orbitSpeed = 1.00f,
-        .selfRotationSpeed = 1.00f,
+        .orbitSpeed = 22.0f,
+        .selfRotationSpeed = 30.0f,
         .orbitAxis = {0.0f, 1.0f, 0.0f}
     },
 
@@ -51,8 +51,8 @@ const std::vector<CelestialBody> celestialBodies = {
         .name = "Moon",
         .radius = 0.06f,
         .distanceFromParent = 0.45f,
-        .orbitSpeed = 4.00f,
-        .selfRotationSpeed = 0.20f,
+        .orbitSpeed = 70.0f,
+        .selfRotationSpeed = 70.0f,
         .orbitAxis = {0.0f, 1.0f, 0.0f}
     },
 
@@ -62,8 +62,8 @@ const std::vector<CelestialBody> celestialBodies = {
         .name = "Mars",
         .radius = 0.17f,
         .distanceFromParent = 5.8f,
-        .orbitSpeed = 0.80f,
-        .selfRotationSpeed = 0.95f,
+        .orbitSpeed = 16.0f,
+        .selfRotationSpeed = 28.0f,
         .orbitAxis = {0.0f, 1.0f, 0.0f}
     },
 
@@ -73,8 +73,8 @@ const std::vector<CelestialBody> celestialBodies = {
         .name = "Phobos",
         .radius = 0.03f,
         .distanceFromParent = 0.30f,
-        .orbitSpeed = 8.00f,
-        .selfRotationSpeed = 0.30f,
+        .orbitSpeed = 120.0f,
+        .selfRotationSpeed = 45.0f,
         .orbitAxis = {0.0f, 1.0f, 0.0f}
     },
 
@@ -84,8 +84,8 @@ const std::vector<CelestialBody> celestialBodies = {
         .name = "Deimos",
         .radius = 0.02f,
         .distanceFromParent = 0.55f,
-        .orbitSpeed = 5.50f,
-        .selfRotationSpeed = 0.25f,
+        .orbitSpeed = 80.0f,
+        .selfRotationSpeed = 35.0f,
         .orbitAxis = {0.0f, 1.0f, 0.0f}
     }
 };

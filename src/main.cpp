@@ -143,7 +143,7 @@ int main()
 
         glBindVertexArray(VAO);
 
-        renderSolarSystem(VBO, modelLocation);
+        renderSolarSystem(VBO, modelLocation, deltaTime);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
