@@ -26,9 +26,35 @@ int main()
 
     unsigned int shaderProgram = createShaderProgram();
 
-    int modelLocation = glGetUniformLocation(shaderProgram, "model");
-    int viewLocation = glGetUniformLocation(shaderProgram, "view");
-    int projectionLocation = glGetUniformLocation(shaderProgram, "projection");
+    int modelLocation =
+        glGetUniformLocation(
+            shaderProgram,
+            "model"
+        );
+
+    int viewLocation =
+        glGetUniformLocation(
+            shaderProgram,
+            "view"
+        );
+
+    int projectionLocation =
+        glGetUniformLocation(
+            shaderProgram,
+            "projection"
+        );
+
+    int primaryColorLocation =
+        glGetUniformLocation(
+            shaderProgram,
+            "primaryColor"
+        );
+
+    int secondaryColorLocation =
+        glGetUniformLocation(
+            shaderProgram,
+            "secondaryColor"
+        );
 
     Camera camera;
 
@@ -53,19 +79,19 @@ int main()
         3,
         GL_FLOAT,
         GL_FALSE,
-        6 * sizeof(float),
+        4 * sizeof(float),
         (void*)0
     );
 
     glEnableVertexAttribArray(0);
 
-    // Color
+    // Color index
     glVertexAttribPointer(
         1,
-        3,
+        1,
         GL_FLOAT,
         GL_FALSE,
-        6 * sizeof(float),
+        4 * sizeof(float),
         (void*)(3 * sizeof(float))
     );
 
@@ -82,30 +108,54 @@ int main()
     while (!glfwWindowShouldClose(window))
     {
         double currentTime = glfwGetTime();
-        double deltaTime = currentTime - previousTime;
+
+        double deltaTime =
+            currentTime - previousTime;
+
         previousTime = currentTime;
 
-        processInput(window, deltaTime, camera);
+        processInput(
+            window,
+            deltaTime,
+            camera
+        );
 
         int width;
         int height;
 
-        glfwGetFramebufferSize(window, &width, &height);
+        glfwGetFramebufferSize(
+            window,
+            &width,
+            &height
+        );
 
-        glfwSetWindowUserPointer(window, &camera);
-        glfwSetScrollCallback(window, scrollCallback);
+        glfwSetWindowUserPointer(
+            window,
+            &camera
+        );
+
+        glfwSetScrollCallback(
+            window,
+            scrollCallback
+        );
 
         glm::mat4 projection = glm::perspective(
             glm::radians(45.0f),
-            static_cast<float>(width) / static_cast<float>(height),
+            static_cast<float>(width) /
+            static_cast<float>(height),
             0.1f,
             100.0f
         );
 
-        processMouseInput(window, camera, projection);
+        processMouseInput(
+            window,
+            camera,
+            projection
+        );
 
-        glm::mat4 view = camera.getViewMatrix();
-        
+        glm::mat4 view =
+            camera.getViewMatrix();
+
         glClearColor(
             0.2f,
             0.4f,
@@ -143,16 +193,31 @@ int main()
 
         glBindVertexArray(VAO);
 
-        renderSolarSystem(VBO, modelLocation, deltaTime);
+        renderSolarSystem(
+            VBO,
+            modelLocation,
+            primaryColorLocation,
+            secondaryColorLocation,
+            deltaTime
+        );
 
         glfwSwapBuffers(window);
         glfwPollEvents();
-
     }
 
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
-    glDeleteProgram(shaderProgram);
+    glDeleteVertexArrays(
+        1,
+        &VAO
+    );
+
+    glDeleteBuffers(
+        1,
+        &VBO
+    );
+
+    glDeleteProgram(
+        shaderProgram
+    );
 
     glfwDestroyWindow(window);
     glfwTerminate();

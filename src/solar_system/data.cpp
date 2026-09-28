@@ -10,7 +10,9 @@ const std::vector<CelestialBody> celestialBodies = {
         .orbitSpeed = 0.0f,
         .selfRotationSpeed = 20.0f,
         .orbitAxis = {0.0f, 1.0f, 0.0f},
-        .rotationAxis = {0.126f, 0.992f, 0.0f}
+        .rotationAxis = {0.126f, 0.992f, 0.0f},
+        .primaryColor = {1.0f, 0.75f, 0.15f},
+        .secondaryColor = {0.95f, 0.45f, 0.05f}
     },
 
     {
@@ -22,7 +24,9 @@ const std::vector<CelestialBody> celestialBodies = {
         .orbitSpeed = 35.0f,
         .selfRotationSpeed = 12.0f,
         .orbitAxis = {0.0f, 1.0f, 0.0f},
-        .rotationAxis = {0.001f, 1.0f, 0.0f}
+        .rotationAxis = {0.001f, 1.0f, 0.0f},
+        .primaryColor = {0.55f, 0.55f, 0.52f},
+        .secondaryColor = {0.32f, 0.32f, 0.30f}
     },
 
     {
@@ -34,7 +38,9 @@ const std::vector<CelestialBody> celestialBodies = {
         .orbitSpeed = 28.0f,
         .selfRotationSpeed = -8.0f,
         .orbitAxis = {0.0f, 1.0f, 0.0f},
-        .rotationAxis = {0.045f, -0.999f, 0.0f}
+        .rotationAxis = {0.045f, -0.999f, 0.0f},
+        .primaryColor = {0.90f, 0.72f, 0.42f},
+        .secondaryColor = {0.62f, 0.45f, 0.24f}
     },
 
     {
@@ -46,7 +52,9 @@ const std::vector<CelestialBody> celestialBodies = {
         .orbitSpeed = 22.0f,
         .selfRotationSpeed = 30.0f,
         .orbitAxis = {0.0f, 1.0f, 0.0f},
-        .rotationAxis = {0.398f, 0.917f, 0.0f}
+        .rotationAxis = {0.398f, 0.917f, 0.0f},
+        .primaryColor = {0.08f, 0.30f, 0.72f},
+        .secondaryColor = {0.16f, 0.55f, 0.18f}
     },
 
     {
@@ -58,7 +66,9 @@ const std::vector<CelestialBody> celestialBodies = {
         .orbitSpeed = 70.0f,
         .selfRotationSpeed = 70.0f,
         .orbitAxis = {0.0f, 1.0f, 0.0f},
-        .rotationAxis = {0.116f, 0.993f, 0.0f}
+        .rotationAxis = {0.116f, 0.993f, 0.0f},
+        .primaryColor = {0.70f, 0.70f, 0.68f},
+        .secondaryColor = {0.38f, 0.38f, 0.36f}
     },
 
     {
@@ -70,7 +80,9 @@ const std::vector<CelestialBody> celestialBodies = {
         .orbitSpeed = 16.0f,
         .selfRotationSpeed = 28.0f,
         .orbitAxis = {0.0f, 1.0f, 0.0f},
-        .rotationAxis = {0.425f, 0.906f, 0.0f}
+        .rotationAxis = {0.425f, 0.906f, 0.0f},
+        .primaryColor = {0.72f, 0.28f, 0.16f},
+        .secondaryColor = {0.42f, 0.12f, 0.08f}
     },
 
     {
@@ -82,7 +94,9 @@ const std::vector<CelestialBody> celestialBodies = {
         .orbitSpeed = 120.0f,
         .selfRotationSpeed = 45.0f,
         .orbitAxis = {0.0f, 1.0f, 0.0f},
-        .rotationAxis = {0.0f, 1.0f, 0.0f}
+        .rotationAxis = {0.0f, 1.0f, 0.0f},
+        .primaryColor = {0.45f, 0.40f, 0.34f},
+        .secondaryColor = {0.25f, 0.23f, 0.20f}
     },
 
     {
@@ -94,6 +108,8 @@ const std::vector<CelestialBody> celestialBodies = {
         .orbitSpeed = 80.0f,
         .selfRotationSpeed = 35.0f,
         .orbitAxis = {0.0f, 1.0f, 0.0f},
-        .rotationAxis = {0.0f, 1.0f, 0.0f}
+        .rotationAxis = {0.0f, 1.0f, 0.0f},
+        .primaryColor = {0.50f, 0.45f, 0.39f},
+        .secondaryColor = {0.28f, 0.26f, 0.23f}
     }
 };

@@ -9,16 +9,14 @@ namespace
     void addVertex(
         SphereInfo& sphere,
         const Position& position,
-        float red
+        float colorIndex
     )
     {
         sphere.vertices.push_back(position.x);
         sphere.vertices.push_back(position.y);
         sphere.vertices.push_back(position.z);
 
-        sphere.vertices.push_back(red);
-        sphere.vertices.push_back(0.0f);
-        sphere.vertices.push_back(0.0f);
+        sphere.vertices.push_back(colorIndex);
     }
 
     void createQuad(
@@ -30,17 +28,18 @@ namespace
         bool darkColor
     )
     {
-        const float red = darkColor ? 0.55f : 1.0f;
+        const float colorIndex =
+            darkColor ? 1.0f : 0.0f;
 
         // Первый треугольник
-        addVertex(sphere, topLeft, red);
-        addVertex(sphere, bottomLeft, red);
-        addVertex(sphere, topRight, red);
+        addVertex(sphere, topLeft, colorIndex);
+        addVertex(sphere, bottomLeft, colorIndex);
+        addVertex(sphere, topRight, colorIndex);
 
         // Второй треугольник
-        addVertex(sphere, topRight, red);
-        addVertex(sphere, bottomLeft, red);
-        addVertex(sphere, bottomRight, red);
+        addVertex(sphere, topRight, colorIndex);
+        addVertex(sphere, bottomLeft, colorIndex);
+        addVertex(sphere, bottomRight, colorIndex);
     }
 
     void createPoleTriangle(
@@ -51,11 +50,12 @@ namespace
         bool darkColor
     )
     {
-        const float red = darkColor ? 0.55f : 1.0f;
+        const float colorIndex =
+            darkColor ? 1.0f : 0.0f;
 
-        addVertex(sphere, pole, red);
-        addVertex(sphere, left, red);
-        addVertex(sphere, right, red);
+        addVertex(sphere, pole, colorIndex);
+        addVertex(sphere, left, colorIndex);
+        addVertex(sphere, right, colorIndex);
     }
 
     Position getSpherePoint(
@@ -64,12 +64,23 @@ namespace
         float longitudeAngle
     )
     {
-        const float cosLat = std::cos(latitudeAngle);
+        const float cosLat =
+            std::cos(latitudeAngle);
 
         return {
-            settings.position.x + settings.radius * cosLat * std::cos(longitudeAngle),
-            settings.position.y + settings.radius * std::sin(latitudeAngle),
-            settings.position.z + settings.radius * cosLat * std::sin(longitudeAngle)
+            settings.position.x +
+                settings.radius *
+                cosLat *
+                std::cos(longitudeAngle),
+
+            settings.position.y +
+                settings.radius *
+                std::sin(latitudeAngle),
+
+            settings.position.z +
+                settings.radius *
+                cosLat *
+                std::sin(longitudeAngle)
         };
     }
 }
@@ -79,10 +90,12 @@ SphereInfo getSphereInfo(const SphereSettings& settings)
     SphereInfo sphere;
 
     const float latitudeStep =
-        PI / static_cast<float>(settings.latitudeCount);
+        PI /
+        static_cast<float>(settings.latitudeCount);
 
     const float longitudeStep =
-        2.0f * PI / static_cast<float>(settings.meridianCount);
+        2.0f * PI /
+        static_cast<float>(settings.meridianCount);
 
     const Position northPole = {
         settings.position.x,
@@ -101,19 +114,34 @@ SphereInfo getSphereInfo(const SphereSettings& settings)
     // -------------------------
 
     {
-        const float latitude = PI / 2.0f - latitudeStep;
+        const float latitude =
+            PI / 2.0f - latitudeStep;
 
-        for (int meridian = 0; meridian < settings.meridianCount; meridian++)
+        for (
+            int meridian = 0;
+            meridian < settings.meridianCount;
+            meridian++
+            )
         {
-            const float currentLongitude = meridian * longitudeStep;
+            const float currentLongitude =
+                meridian * longitudeStep;
+
             const float nextLongitude =
                 (meridian + 1) * longitudeStep;
 
             Position left =
-                getSpherePoint(settings, latitude, currentLongitude);
+                getSpherePoint(
+                    settings,
+                    latitude,
+                    currentLongitude
+                );
 
             Position right =
-                getSpherePoint(settings, latitude, nextLongitude);
+                getSpherePoint(
+                    settings,
+                    latitude,
+                    nextLongitude
+                );
 
             createPoleTriangle(
                 sphere,
@@ -136,10 +164,12 @@ SphereInfo getSphereInfo(const SphereSettings& settings)
         )
     {
         const float currentLatitude =
-            PI / 2.0f - latitudeIndex * latitudeStep;
+            PI / 2.0f -
+            latitudeIndex * latitudeStep;
 
         const float nextLatitude =
-            PI / 2.0f - (latitudeIndex + 1) * latitudeStep;
+            PI / 2.0f -
+            (latitudeIndex + 1) * latitudeStep;
 
         for (
             int meridian = 0;
@@ -154,16 +184,32 @@ SphereInfo getSphereInfo(const SphereSettings& settings)
                 (meridian + 1) * longitudeStep;
 
             Position topLeft =
-                getSpherePoint(settings, currentLatitude, currentLongitude);
+                getSpherePoint(
+                    settings,
+                    currentLatitude,
+                    currentLongitude
+                );
 
             Position topRight =
-                getSpherePoint(settings, currentLatitude, nextLongitude);
+                getSpherePoint(
+                    settings,
+                    currentLatitude,
+                    nextLongitude
+                );
 
             Position bottomLeft =
-                getSpherePoint(settings, nextLatitude, currentLongitude);
+                getSpherePoint(
+                    settings,
+                    nextLatitude,
+                    currentLongitude
+                );
 
             Position bottomRight =
-                getSpherePoint(settings, nextLatitude, nextLongitude);
+                getSpherePoint(
+                    settings,
+                    nextLatitude,
+                    nextLongitude
+                );
 
             createQuad(
                 sphere,
@@ -184,17 +230,31 @@ SphereInfo getSphereInfo(const SphereSettings& settings)
         const float latitude =
             -PI / 2.0f + latitudeStep;
 
-        for (int meridian = 0; meridian < settings.meridianCount; meridian++)
+        for (
+            int meridian = 0;
+            meridian < settings.meridianCount;
+            meridian++
+            )
         {
-            const float currentLongitude = meridian * longitudeStep;
+            const float currentLongitude =
+                meridian * longitudeStep;
+
             const float nextLongitude =
                 (meridian + 1) * longitudeStep;
 
             Position left =
-                getSpherePoint(settings, latitude, currentLongitude);
+                getSpherePoint(
+                    settings,
+                    latitude,
+                    currentLongitude
+                );
 
             Position right =
-                getSpherePoint(settings, latitude, nextLongitude);
+                getSpherePoint(
+                    settings,
+                    latitude,
+                    nextLongitude
+                );
 
             createPoleTriangle(
                 sphere,
@@ -207,7 +267,9 @@ SphereInfo getSphereInfo(const SphereSettings& settings)
     }
 
     sphere.vertexCount =
-        static_cast<int>(sphere.vertices.size() / 6);
+        static_cast<int>(
+            sphere.vertices.size() / 4
+            );
 
     return sphere;
 }

@@ -1,28 +1,39 @@
 #include "shaders.hpp"
 #include <glad/glad.h>
 
-namespace {
+namespace
+{
     const char* fragmentShaderSource = R"(
         #version 330 core
 
-        in vec3 color;
+        in float colorIndex;
 
         out vec4 FragColor;
 
+        uniform vec3 primaryColor;
+        uniform vec3 secondaryColor;
+
         void main()
         {
-            FragColor = vec4(color, 1.0);
+            if (colorIndex < 0.5)
+            {
+                FragColor = vec4(primaryColor, 1.0);
+            }
+            else
+            {
+                FragColor = vec4(secondaryColor, 1.0);
+            }
         }
     )";
 
 
-        const char* vertexShaderSource = R"(
+    const char* vertexShaderSource = R"(
         #version 330 core
 
         layout (location = 0) in vec3 aPos;
-        layout (location = 1) in vec3 aColor;
+        layout (location = 1) in float aColorIndex;
 
-        out vec3 color;
+        out float colorIndex;
 
         uniform mat4 model;
         uniform mat4 view;
@@ -36,14 +47,15 @@ namespace {
                 model *
                 vec4(aPos, 1.0);
 
-            color = aColor;
+            colorIndex = aColorIndex;
         }
     )";
 }
 
 unsigned int createShaderProgram()
 {
-    unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    unsigned int vertexShader =
+        glCreateShader(GL_VERTEX_SHADER);
 
     glShaderSource(
         vertexShader,
@@ -54,7 +66,8 @@ unsigned int createShaderProgram()
 
     glCompileShader(vertexShader);
 
-    unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    unsigned int fragmentShader =
+        glCreateShader(GL_FRAGMENT_SHADER);
 
     glShaderSource(
         fragmentShader,
@@ -65,10 +78,18 @@ unsigned int createShaderProgram()
 
     glCompileShader(fragmentShader);
 
-    unsigned int shaderProgram = glCreateProgram();
+    unsigned int shaderProgram =
+        glCreateProgram();
 
-    glAttachShader(shaderProgram, vertexShader);
-    glAttachShader(shaderProgram, fragmentShader);
+    glAttachShader(
+        shaderProgram,
+        vertexShader
+    );
+
+    glAttachShader(
+        shaderProgram,
+        fragmentShader
+    );
 
     glLinkProgram(shaderProgram);
 

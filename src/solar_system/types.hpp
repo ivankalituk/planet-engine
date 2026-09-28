@@ -17,4 +17,7 @@ struct CelestialBody
 
     glm::vec3 orbitAxis;
     glm::vec3 rotationAxis;
+
+    glm::vec3 primaryColor;
+    glm::vec3 secondaryColor;
 };
