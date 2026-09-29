@@ -47,16 +47,17 @@ add_executable(planet-engine
     src/graphics/shaders.cpp
 
     src/camera/camera.cpp
+    src/camera/movement.cpp
 
     src/window/window.cpp
 
     src/input/keyboard/keyboard.cpp
-    src/input/mouse/mouse.cpp
     src/input/scroll/scroll.cpp
+
     src/solar_system/data.cpp
     src/solar_system/renderer.cpp
     src/solar_system/bodies/state.cpp
-)
+ "src/camera/movement.cpp")
 
 target_include_directories(planet-engine PRIVATE
     external/glad/include

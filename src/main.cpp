@@ -8,7 +8,6 @@
 #include "window/window.hpp"
 #include "input/keyboard/keyboard.hpp"
 #include "input/scroll/scroll.hpp"
-#include "input/mouse/mouse.hpp"
 #include "solar_system/renderer.hpp"
 #include "solar_system/bodies/state.hpp"
 
@@ -145,12 +144,6 @@ int main()
             static_cast<float>(height),
             0.1f,
             100.0f
-        );
-
-        processMouseInput(
-            window,
-            camera,
-            projection
         );
 
         glm::mat4 view =
