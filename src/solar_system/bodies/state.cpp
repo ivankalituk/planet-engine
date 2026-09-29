@@ -1,6 +1,6 @@
 #include "state.hpp"
 
-#include "../data.hpp"
+#include "../data/data.hpp"
 #include <iostream>
 
 
@@ -24,6 +24,7 @@ void createCelestialBodyStates() {
         if (body.id == "STAR") {
             celestialBodyStates.push_back({
                 body.id,
+                body.parentId,
                 {0.0f, 0.0f, 0.0f},
                 {0.0f, 1.0f, 0.0f},
                 body.selfRotationSpeed
@@ -34,6 +35,7 @@ void createCelestialBodyStates() {
         if (body.parentId == "STAR") {
             celestialBodyStates.push_back({
                 body.id,
+                body.parentId,
                 {body.distanceFromParent , 0.0f, 0.0f},
                 {0.0f, 1.0f, 0.0f}
             });
@@ -45,6 +47,7 @@ void createCelestialBodyStates() {
 
             celestialBodyStates.push_back({
                 body.id,
+                body.parentId,
                 {body.distanceFromParent + parentBody->distanceFromParent , 0.0f, 0.0f},
                 {0.0f, 1.0f, 0.0f}
             });

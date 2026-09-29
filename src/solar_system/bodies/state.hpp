@@ -8,6 +8,7 @@
 struct CelestialBodyState
 {
     std::string id;
+    std::string parentId;
 
     glm::vec3 position;
     glm::vec3 rotationAxis;

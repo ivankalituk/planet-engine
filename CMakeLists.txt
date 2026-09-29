@@ -57,7 +57,8 @@ add_executable(planet-engine
     src/solar_system/data/data.cpp
     src/solar_system/renderer/renderer.cpp
     src/solar_system/bodies/state.cpp
- "src/camera/movement.cpp")
+    src/solar_system/movement/movement.cpp
+ "src/camera/movement.cpp" "src/solar_system/movement/movement.cpp")
 
 target_include_directories(planet-engine PRIVATE
     external/glad/include
