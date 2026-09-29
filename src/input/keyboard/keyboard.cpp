@@ -5,4 +5,10 @@
 
 void processInput(GLFWwindow* window, double deltaTime, Camera& camera) {
 	processCameraMovement(window, deltaTime, camera);
+
+
+    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+        
+    }
+
 }

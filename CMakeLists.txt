@@ -54,8 +54,8 @@ add_executable(planet-engine
     src/input/keyboard/keyboard.cpp
     src/input/scroll/scroll.cpp
 
-    src/solar_system/data.cpp
-    src/solar_system/renderer.cpp
+    src/solar_system/data/data.cpp
+    src/solar_system/renderer/renderer.cpp
     src/solar_system/bodies/state.cpp
  "src/camera/movement.cpp")
 

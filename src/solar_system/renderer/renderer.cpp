@@ -1,7 +1,8 @@
 #include "renderer.hpp"
-#include "../geometry/sphere/sphere.hpp"
-#include "data.hpp"
-#include "bodies/state.hpp"
+#include "../../geometry/sphere/sphere.hpp"
+#include "../data/data.hpp"
+#include "../bodies/state.hpp"
+#include "../types.hpp"
 
 #include <glad/glad.h>
 #include <glm/glm.hpp>

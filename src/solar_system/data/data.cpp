@@ -1,4 +1,5 @@
 #include "data.hpp"
+#include "../types.hpp"
 
 const std::vector<CelestialBody> celestialBodies = {
     {

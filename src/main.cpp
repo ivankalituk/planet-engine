@@ -8,7 +8,7 @@
 #include "window/window.hpp"
 #include "input/keyboard/keyboard.hpp"
 #include "input/scroll/scroll.hpp"
-#include "solar_system/renderer.hpp"
+#include "solar_system/renderer/renderer.hpp"
 #include "solar_system/bodies/state.hpp"
 
 #include <glm/glm.hpp>
