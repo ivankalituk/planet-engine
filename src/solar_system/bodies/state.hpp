@@ -14,6 +14,7 @@ struct CelestialBodyState
 
     glm::vec3 selfRotationAxis;
     float selfRotationAngle;
+    float selfRotationSpeed;
 
     glm::vec3 orbitAxis;
     float orbitRotationAngle;

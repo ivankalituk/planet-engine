@@ -27,6 +27,7 @@ void createCelestialBodyStates() {
                 body.parentId,
                 {0.0f, 0.0f, 0.0f},
                 {0.0f, 1.0f, 0.0f},
+                0.0f,
                 body.selfRotationSpeed,
                 body.orbitAxis,
                 body.orbitSpeed
@@ -40,6 +41,7 @@ void createCelestialBodyStates() {
                 body.parentId,
                 {body.distanceFromParent , 0.0f, 0.0f},
                 {0.0f, 1.0f, 0.0f},
+                0.0f,
                 body.selfRotationSpeed,
                 body.orbitAxis,
                 body.orbitSpeed
@@ -55,6 +57,7 @@ void createCelestialBodyStates() {
                 body.parentId,
                 {body.distanceFromParent + parentBody->distanceFromParent , 0.0f, 0.0f},
                 {0.0f, 1.0f, 0.0f},
+                0.0f,
                 body.selfRotationSpeed,
                 body.orbitAxis,
                 body.orbitSpeed
@@ -74,12 +77,4 @@ CelestialBodyState* getBodyState(const std::string& id) {
     }
 
     return nullptr;
-}
-
-void updateCelestialBodies(float deltaTime) {
-    for (std::size_t i = 0; i < celestialBodyStates.size(); i++)
-    {
-        celestialBodyStates[i].selfRotationAngle +=
-            celestialBodies[i].selfRotationSpeed * deltaTime;
-    }
 }

@@ -70,8 +70,6 @@ void renderSolarSystem(
         40
         });
 
-    updateCelestialBodies(deltaTime);
-
     for (std::size_t i = 0; i < celestialBodyStates.size(); i++)
     {
         const CelestialBodyState& state =
