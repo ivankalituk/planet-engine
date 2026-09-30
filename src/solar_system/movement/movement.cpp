@@ -8,17 +8,29 @@ void processPlanetsMovement(GLFWwindow* window, double deltaTime) {
 
     glm::vec3 sunOrbitAxis = celestialBodyStates[0].orbitAxis;
 
+    static double accelerationTimer = 0.0;
+    static double accelerationFactor = 1.0;
+
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+
+        accelerationTimer += deltaTime;
+
+        if (accelerationTimer > 2.0 && accelerationFactor <= 3) {
+            accelerationFactor += 0.1;
+        }
+
+        double transition = accelerationFactor * deltaTime;
+
         for (int i = 0; celestialBodyStates.size() > i; i++) {
 
             //planets self rotation
             celestialBodyStates[i].selfRotationAngle +=
-                celestialBodyStates[i].selfRotationSpeed * deltaTime;
+                celestialBodyStates[i].selfRotationSpeed * transition;
 
 
             //planets movement
             if (celestialBodyStates[i].id != "STAR" && celestialBodyStates[i].parentId == "STAR") {
-                float deltaAngle = celestialBodyStates[i].orbitRotationAngle * deltaTime;
+                float deltaAngle = celestialBodyStates[i].orbitRotationAngle * transition;
                 glm::mat4 rotation = glm::rotate(glm::mat4(1.0f), glm::radians(deltaAngle), sunOrbitAxis);
 
                 glm::vec4 newPosition = rotation * glm::vec4(celestialBodyStates[i].position, 1.0f);
@@ -28,7 +40,7 @@ void processPlanetsMovement(GLFWwindow* window, double deltaTime) {
                     if (celestialBodyStates[s].parentId == celestialBodyStates[i].id) {
                         glm::vec3 planetMovement = glm::vec3(newPosition) - celestialBodyStates[i].position;
 
-                        float deltaAngle = celestialBodyStates[s].orbitRotationAngle * deltaTime;
+                        float deltaAngle = celestialBodyStates[s].orbitRotationAngle * transition;
 
                         glm::mat4 satelliteRotation = glm::rotate(
                             glm::mat4(1.0f),
@@ -47,5 +59,8 @@ void processPlanetsMovement(GLFWwindow* window, double deltaTime) {
                 celestialBodyStates[i].position = glm::vec3(newPosition);
             }
         }
+    } else {
+        accelerationTimer = 0.0;
+        accelerationFactor = 1.0;
     }
 }
