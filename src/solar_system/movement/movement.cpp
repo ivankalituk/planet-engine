@@ -15,8 +15,8 @@ void processPlanetsMovement(GLFWwindow* window, double deltaTime) {
 
         accelerationTimer += deltaTime;
 
-        if (accelerationTimer > 2.0 && accelerationFactor <= 3) {
-            accelerationFactor += 0.1;
+        if (accelerationTimer > 2.0 && accelerationFactor <= 6) {
+            accelerationFactor += 0.01;
         }
 
         double transition = accelerationFactor * deltaTime;
