@@ -21,6 +21,21 @@ void processPlanetsMovement(GLFWwindow* window, double deltaTime) {
 
                 for (int s = 0; celestialBodyStates.size() > s; s++) {
                     if (celestialBodyStates[s].parentId == celestialBodyStates[i].id) {
+                        glm::vec3 planetMovement = glm::vec3(newPosition) - celestialBodyStates[i].position;
+
+                        float deltaAngle = celestialBodyStates[s].orbitRotationAngle * deltaTime;
+
+                        glm::mat4 satelliteRotation = glm::rotate(
+                            glm::mat4(1.0f),
+                            glm::radians(deltaAngle),
+                            celestialBodyStates[i].orbitAxis
+                        );
+
+                        glm::vec3 relativePosition = celestialBodyStates[s].position - celestialBodyStates[i].position;
+                        glm::vec4 newRelativePosition = satelliteRotation * glm::vec4(relativePosition, 1.0f);
+                        glm::vec3 newSatellitePosition = glm::vec3(newPosition) + glm::vec3(newRelativePosition);
+
+                        celestialBodyStates[s].position = newSatellitePosition;
                     }
                 }
 
