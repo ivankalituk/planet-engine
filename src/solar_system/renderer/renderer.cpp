@@ -121,7 +121,7 @@ void renderSolarSystem(
         // whole planet rotation in a local axis
         model = glm::rotate(
             model,
-            glm::radians(state.rotationAngle),
+            glm::radians(state.selfRotationAngle),
             glm::vec3(0.0f, 1.0f, 0.0f)
         );
 

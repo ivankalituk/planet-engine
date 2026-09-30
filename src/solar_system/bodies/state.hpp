@@ -11,8 +11,12 @@ struct CelestialBodyState
     std::string parentId;
 
     glm::vec3 position;
-    glm::vec3 rotationAxis;
-    float rotationAngle;
+
+    glm::vec3 selfRotationAxis;
+    float selfRotationAngle;
+
+    glm::vec3 orbitAxis;
+    float orbitRotationAngle;
 };
 
 extern std::vector<CelestialBodyState> celestialBodyStates;
