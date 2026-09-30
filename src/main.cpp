@@ -150,9 +150,9 @@ int main()
             camera.getViewMatrix();
 
         glClearColor(
-            0.2f,
-            0.4f,
-            0.8f,
+            0.008f,
+            0.004f,
+            0.012f,
             1.0f
         );
 
