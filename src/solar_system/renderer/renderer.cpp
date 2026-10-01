@@ -10,8 +10,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 
-GLuint planetBuffer()
-{
+GLuint planetBuffer() {
     const SphereInfo sphereInfo = getSphereInfo({
         {0.0f, 0.0f, 0.0f},
         1.0f,
@@ -34,8 +33,7 @@ GLuint planetBuffer()
     return VBO;
 }
 
-GLuint orbitBuffer()
-{
+GLuint orbitBuffer() {
     const LineCircleInfo orbitInfo = getLineCircleInfo({
         {0.0f, 0.0f, 0.0f},
         1.0f,
@@ -57,6 +55,65 @@ GLuint orbitBuffer()
     return VBO;
 }
 
+GLuint createPlanetVAO(GLuint VBO) {
+    GLuint VAO;
+
+    glGenVertexArrays(1, &VAO);
+    glBindVertexArray(VAO);
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+    glVertexAttribPointer(
+        0,
+        3,
+        GL_FLOAT,
+        GL_FALSE,
+        4 * sizeof(float),
+        (void*)0
+    );
+
+    glEnableVertexAttribArray(0);
+
+    glVertexAttribPointer(
+        1,
+        1,
+        GL_FLOAT,
+        GL_FALSE,
+        4 * sizeof(float),
+        (void*)(3 * sizeof(float))
+    );
+
+    glEnableVertexAttribArray(1);
+
+    glBindVertexArray(0);
+
+    return VAO;
+}
+
+GLuint createOrbitVAO(GLuint VBO) {
+    GLuint VAO;
+
+    glGenVertexArrays(1, &VAO);
+    glBindVertexArray(VAO);
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+    glVertexAttribPointer(
+        0,
+        3,
+        GL_FLOAT,
+        GL_FALSE,
+        3 * sizeof(float),
+        (void*)0
+    );
+
+    glEnableVertexAttribArray(0);
+
+    glBindVertexArray(0);
+
+    return VAO;
+}
+
 void renderSolarSystem(
     GLint modelLocation,
     GLint primaryColorLocation,
@@ -70,8 +127,7 @@ void renderSolarSystem(
         40
         });
 
-    for (std::size_t i = 0; i < celestialBodyStates.size(); i++)
-    {
+    for (std::size_t i = 0; i < celestialBodyStates.size(); i++) {
         const CelestialBodyState& state =
             celestialBodyStates[i];
 

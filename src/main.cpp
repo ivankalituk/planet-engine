@@ -60,69 +60,14 @@ int main()
     glm::mat4 model = glm::mat4(1.0f);
 
     // -------------------------
-    // Buffers
+    // VBO buffer and VAO
     // -------------------------
 
     GLuint planetVBO = planetBuffer();
     GLuint orbitVBO = orbitBuffer();
 
-    GLuint planetVAO;
-    GLuint orbitVAO;
-
-    glGenVertexArrays(1, &planetVAO);
-    glGenVertexArrays(1, &orbitVAO);
-
-    // -------------------------
-    // Planet VAO
-    // -------------------------
-
-    glBindVertexArray(planetVAO);
-    glBindBuffer(GL_ARRAY_BUFFER, planetVBO);
-
-    // Position
-    glVertexAttribPointer(
-        0,
-        3,
-        GL_FLOAT,
-        GL_FALSE,
-        4 * sizeof(float),
-        (void*)0
-    );
-
-    glEnableVertexAttribArray(0);
-
-    // Color index
-    glVertexAttribPointer(
-        1,
-        1,
-        GL_FLOAT,
-        GL_FALSE,
-        4 * sizeof(float),
-        (void*)(3 * sizeof(float))
-    );
-
-    glEnableVertexAttribArray(1);
-
-    // -------------------------
-    // Orbit VAO
-    // -------------------------
-
-    glBindVertexArray(orbitVAO);
-    glBindBuffer(GL_ARRAY_BUFFER, orbitVBO);
-
-    // Position
-    glVertexAttribPointer(
-        0,
-        3,
-        GL_FLOAT,
-        GL_FALSE,
-        3 * sizeof(float),
-        (void*)0
-    );
-
-    glEnableVertexAttribArray(0);
-
-    glBindVertexArray(0);
+    GLuint planetVAO = createPlanetVAO(planetVBO);
+    GLuint orbitVAO = createOrbitVAO(orbitVBO);
 
     glEnable(GL_DEPTH_TEST);
 
