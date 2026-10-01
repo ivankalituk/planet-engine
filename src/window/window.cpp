@@ -15,8 +15,6 @@ namespace
 }
 
 GLFWwindow* createWindow(
-    int width,
-    int height,
     const char* title
 )
 {
@@ -27,9 +25,14 @@ GLFWwindow* createWindow(
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_DEPTH_BITS, 24);
 
+    GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+
+    const GLFWvidmode* videoMode =
+        glfwGetVideoMode(monitor);
+
     GLFWwindow* window = glfwCreateWindow(
-        width,
-        height,
+        videoMode->width,
+        videoMode->height,
         title,
         nullptr,
         nullptr

@@ -18,8 +18,6 @@
 int main()
 {
     GLFWwindow* window = createWindow(
-        400,
-        600,
         "Planet Engine"
     );
 
