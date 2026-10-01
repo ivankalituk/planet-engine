@@ -61,6 +61,12 @@ int main()
             "orbitColor"
         );
 
+    int isOrbitLocation =
+        glGetUniformLocation(
+            shaderProgram,
+            "isOrbit"
+        );
+
     Camera camera;
 
     glm::mat4 model = glm::mat4(1.0f);
@@ -170,6 +176,7 @@ int main()
             primaryColorLocation,
             secondaryColorLocation,
             orbitColorLocation,
+            isOrbitLocation,
             planetVAO,
             orbitVAO,
             deltaTime

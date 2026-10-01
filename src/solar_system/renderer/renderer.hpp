@@ -13,6 +13,7 @@ void renderSolarSystem(
     GLint primaryColorLocation,
     GLint secondaryColorLocation,
     GLint orbitColorLocation,
+    GLint isOrbitLocation,
     GLuint planetVAO,
     GLuint orbitVAO,
     float deltaTime
