@@ -12,15 +12,15 @@ namespace
 
         uniform vec3 primaryColor;
         uniform vec3 secondaryColor;
-        uniform vec3 orbitColor;
 
+        uniform vec3 orbitColor;
         uniform bool isOrbit;
 
         void main()
         {
             if (isOrbit)
             {
-                FragColor = vec4(orbitColor, 1.0);
+                FragColor = vec4(orbitColor, 0.4);
             }
             else if (colorIndex < 0.5)
             {

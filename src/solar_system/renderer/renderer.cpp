@@ -38,7 +38,7 @@ GLuint orbitBuffer() {
         {0.0f, 0.0f, 0.0f},
         1.0f,
         30
-    });
+        });
 
     GLuint VBO;
 
@@ -176,7 +176,7 @@ void renderSolarSystem(
 
                 glBindVertexArray(orbitVAO);
 
-                glm::vec3 orbitColor = glm::vec3(0.35f);
+                glm::vec3 orbitColor = glm::vec3(0.18f);
 
                 glUniform3fv(
                     orbitColorLocation,
