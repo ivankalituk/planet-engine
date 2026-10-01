@@ -10,13 +10,14 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 
-GLuint planetBuffer() {
+GLuint planetBuffer()
+{
     const SphereInfo sphereInfo = getSphereInfo({
         {0.0f, 0.0f, 0.0f},
         1.0f,
         40,
         40
-    });
+        });
 
     GLuint VBO;
 
@@ -30,37 +31,16 @@ GLuint planetBuffer() {
         GL_STATIC_DRAW
     );
 
-    glVertexAttribPointer(
-        0,
-        3,
-        GL_FLOAT,
-        GL_FALSE,
-        4 * sizeof(float),
-        (void*)0
-    );
-
-    glEnableVertexAttribArray(0);
-
-    glVertexAttribPointer(
-        1,
-        1,
-        GL_FLOAT,
-        GL_FALSE,
-        4 * sizeof(float),
-        (void*)(3 * sizeof(float))
-    );
-
-    glEnableVertexAttribArray(1);
-
     return VBO;
 }
 
-GLuint orbitBuffer() {
+GLuint orbitBuffer()
+{
     const LineCircleInfo orbitInfo = getLineCircleInfo({
         {0.0f, 0.0f, 0.0f},
         1.0f,
-        30,
-    });
+        30
+        });
 
     GLuint VBO;
 
@@ -74,22 +54,10 @@ GLuint orbitBuffer() {
         GL_STATIC_DRAW
     );
 
-    glVertexAttribPointer(
-        0,
-        3,
-        GL_FLOAT,
-        GL_FALSE,
-        3 * sizeof(float),
-        (void*)0
-    );
-
-    glEnableVertexAttribArray(0);
-
     return VBO;
 }
 
 void renderSolarSystem(
-    GLuint VBO,
     GLint modelLocation,
     GLint primaryColorLocation,
     GLint secondaryColorLocation,

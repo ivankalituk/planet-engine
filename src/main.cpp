@@ -63,14 +63,21 @@ int main()
     // Buffers
     // -------------------------
 
-    GLuint VAO;
-    GLuint VBO = planetBuffer();
+    GLuint planetVBO = planetBuffer();
+    GLuint orbitVBO = orbitBuffer();
 
-    glGenVertexArrays(1, &VAO);
+    GLuint planetVAO;
+    GLuint orbitVAO;
 
-    // ВАЖНО: сначала привязываем VAO и VBO
-    glBindVertexArray(VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glGenVertexArrays(1, &planetVAO);
+    glGenVertexArrays(1, &orbitVAO);
+
+    // -------------------------
+    // Planet VAO
+    // -------------------------
+
+    glBindVertexArray(planetVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, planetVBO);
 
     // Position
     glVertexAttribPointer(
@@ -96,6 +103,25 @@ int main()
 
     glEnableVertexAttribArray(1);
 
+    // -------------------------
+    // Orbit VAO
+    // -------------------------
+
+    glBindVertexArray(orbitVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, orbitVBO);
+
+    // Position
+    glVertexAttribPointer(
+        0,
+        3,
+        GL_FLOAT,
+        GL_FALSE,
+        3 * sizeof(float),
+        (void*)0
+    );
+
+    glEnableVertexAttribArray(0);
+
     glBindVertexArray(0);
 
     glEnable(GL_DEPTH_TEST);
@@ -103,7 +129,9 @@ int main()
     double previousTime = glfwGetTime();
 
     createCelestialBodyStates();
+
     glfwSwapInterval(0);
+
     while (!glfwWindowShouldClose(window))
     {
         double currentTime = glfwGetTime();
@@ -184,10 +212,9 @@ int main()
             glm::value_ptr(projection)
         );
 
-        glBindVertexArray(VAO);
+        glBindVertexArray(planetVAO);
 
         renderSolarSystem(
-            VBO,
             modelLocation,
             primaryColorLocation,
             secondaryColorLocation,
@@ -198,14 +225,28 @@ int main()
         glfwPollEvents();
     }
 
+    // -------------------------
+    // Cleanup
+    // -------------------------
+
     glDeleteVertexArrays(
         1,
-        &VAO
+        &planetVAO
+    );
+
+    glDeleteVertexArrays(
+        1,
+        &orbitVAO
     );
 
     glDeleteBuffers(
         1,
-        &VBO
+        &planetVBO
+    );
+
+    glDeleteBuffers(
+        1,
+        &orbitVBO
     );
 
     glDeleteProgram(

@@ -43,6 +43,7 @@ add_executable(planet-engine
 
     src/geometry/cube/cube.cpp
     src/geometry/sphere/sphere.cpp
+    src/geometry/lineCircle/lineCircle.cpp
 
     src/graphics/shaders.cpp
 
