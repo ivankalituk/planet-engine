@@ -103,7 +103,7 @@ int main()
     double previousTime = glfwGetTime();
 
     createCelestialBodyStates();
-
+    glfwSwapInterval(0);
     while (!glfwWindowShouldClose(window))
     {
         double currentTime = glfwGetTime();

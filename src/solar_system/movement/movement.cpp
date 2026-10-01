@@ -11,6 +11,8 @@ void processPlanetsMovement(GLFWwindow* window, double deltaTime) {
     static double accelerationTimer = 0.0;
     static double accelerationFactor = 1.0;
 
+    std::cout << deltaTime;
+
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
 
         accelerationTimer += deltaTime;
