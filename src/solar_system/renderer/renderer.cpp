@@ -3,20 +3,20 @@
 #include "../data/data.hpp"
 #include "../bodies/state.hpp"
 #include "../types.hpp"
+#include "../../geometry/lineCircle/lineCircle.hpp"
 
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 
-GLuint planetBuffer()
-{
+GLuint planetBuffer() {
     const SphereInfo sphereInfo = getSphereInfo({
         {0.0f, 0.0f, 0.0f},
         1.0f,
         40,
         40
-        });
+    });
 
     GLuint VBO;
 
@@ -55,14 +55,46 @@ GLuint planetBuffer()
     return VBO;
 }
 
+GLuint orbitBuffer() {
+    const LineCircleInfo orbitInfo = getLineCircleInfo({
+        {0.0f, 0.0f, 0.0f},
+        1.0f,
+        30,
+    });
+
+    GLuint VBO;
+
+    glGenBuffers(1, &VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+    glBufferData(
+        GL_ARRAY_BUFFER,
+        orbitInfo.vertices.size() * sizeof(float),
+        orbitInfo.vertices.data(),
+        GL_STATIC_DRAW
+    );
+
+    glVertexAttribPointer(
+        0,
+        3,
+        GL_FLOAT,
+        GL_FALSE,
+        3 * sizeof(float),
+        (void*)0
+    );
+
+    glEnableVertexAttribArray(0);
+
+    return VBO;
+}
+
 void renderSolarSystem(
     GLuint VBO,
     GLint modelLocation,
     GLint primaryColorLocation,
     GLint secondaryColorLocation,
     float deltaTime
-)
-{
+) {
     const SphereInfo sphereInfo = getSphereInfo({
         {0.0f, 0.0f, 0.0f},
         1.0f,

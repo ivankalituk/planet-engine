@@ -14,4 +14,4 @@ struct LineCircleSettings {
     int linesCount;
 };
 
-LineCircleInfo getLineCircleInfp(const LineCircleSettings& settings);
+LineCircleInfo getLineCircleInfo(const LineCircleSettings& settings);

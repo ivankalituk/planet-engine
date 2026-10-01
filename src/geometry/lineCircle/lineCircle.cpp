@@ -5,7 +5,7 @@ namespace {
     constexpr float PI = 3.14159265358979323846f;
 }
 
-LineCircleInfo getLineCircleInfp(const LineCircleSettings& settings) {
+LineCircleInfo getLineCircleInfo(const LineCircleSettings& settings) {
 
     const glm::vec3 rotateAxis = glm::vec3(0.0f, 1.0f, 0.0f);
 

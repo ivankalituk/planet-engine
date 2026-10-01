@@ -4,6 +4,8 @@
 
 GLuint planetBuffer();
 
+GLuint orbitBuffer();
+
 void renderSolarSystem(
     GLuint VBO,
     GLint modelLocation,
