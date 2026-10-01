@@ -118,6 +118,9 @@ void renderSolarSystem(
     GLint modelLocation,
     GLint primaryColorLocation,
     GLint secondaryColorLocation,
+    GLint orbitColorLocation,
+    GLuint planetVAO,
+    GLuint orbitVAO,
     float deltaTime
 ) {
     const SphereInfo sphereInfo = getSphereInfo({
@@ -126,6 +129,38 @@ void renderSolarSystem(
         40,
         40
         });
+
+    glm::vec3 orbitColor = glm::vec3(0.35f);
+
+    glUniform3fv(
+        orbitColorLocation,
+        1,
+        &orbitColor[0]
+    );
+
+    // Test orbit
+    glBindVertexArray(orbitVAO);
+
+    glm::mat4 orbitModel = glm::scale(
+        glm::mat4(1.0f),
+        glm::vec3(6.5f)
+    );
+
+    glUniformMatrix4fv(
+        modelLocation,
+        1,
+        GL_FALSE,
+        &orbitModel[0][0]
+    );
+
+    glDrawArrays(
+        GL_LINE_LOOP,
+        0,
+        30
+    );
+
+    // Planets
+    glBindVertexArray(planetVAO);
 
     for (std::size_t i = 0; i < celestialBodyStates.size(); i++) {
         const CelestialBodyState& state =
@@ -151,7 +186,6 @@ void renderSolarSystem(
         float dotProduct =
             glm::dot(localYAxis, rotationAxis);
 
-        // local axis rotation
         if (dotProduct < 0.9999f)
         {
             glm::vec3 tiltAxis =
@@ -172,7 +206,6 @@ void renderSolarSystem(
             );
         }
 
-        // whole planet rotation in a local axis
         model = glm::rotate(
             model,
             glm::radians(state.selfRotationAngle),
