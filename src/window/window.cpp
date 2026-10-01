@@ -10,7 +10,12 @@ namespace
         int height
     )
     {
-        glViewport(0, 0, width, height);
+        glViewport(
+            0,
+            0,
+            width,
+            height
+        );
     }
 }
 
@@ -20,19 +25,29 @@ GLFWwindow* createWindow(
 {
     glfwInit();
 
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_DEPTH_BITS, 24);
+    glfwWindowHint(
+        GLFW_CONTEXT_VERSION_MAJOR,
+        3
+    );
 
-    GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+    glfwWindowHint(
+        GLFW_CONTEXT_VERSION_MINOR,
+        3
+    );
 
-    const GLFWvidmode* videoMode =
-        glfwGetVideoMode(monitor);
+    glfwWindowHint(
+        GLFW_OPENGL_PROFILE,
+        GLFW_OPENGL_CORE_PROFILE
+    );
+
+    glfwWindowHint(
+        GLFW_DEPTH_BITS,
+        24
+    );
 
     GLFWwindow* window = glfwCreateWindow(
-        videoMode->width,
-        videoMode->height,
+        800,
+        600,
         title,
         nullptr,
         nullptr
@@ -48,6 +63,8 @@ GLFWwindow* createWindow(
         window,
         framebufferSizeCallback
     );
+
+    glfwMaximizeWindow(window);
 
     return window;
 }
