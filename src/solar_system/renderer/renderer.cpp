@@ -38,7 +38,7 @@ GLuint orbitBuffer() {
         {0.0f, 0.0f, 0.0f},
         1.0f,
         30
-        });
+    });
 
     GLuint VBO;
 
@@ -133,6 +133,7 @@ void renderSolarSystem(
 
     for (std::size_t i = 0; i < celestialBodyStates.size(); i++) {
 
+        // Planet orbit
         if (celestialBodyStates[i].parentId == "STAR") {
             glBindVertexArray(orbitVAO);
 
@@ -166,6 +167,85 @@ void renderSolarSystem(
                 0,
                 30
             );
+        }
+
+        // Satellite orbits
+        for (std::size_t s = 0; s < celestialBodyStates.size(); s++) {
+
+            if (celestialBodyStates[s].parentId == celestialBodyStates[i].id) {
+
+                glBindVertexArray(orbitVAO);
+
+                glm::vec3 orbitColor = glm::vec3(0.35f);
+
+                glUniform3fv(
+                    orbitColorLocation,
+                    1,
+                    &orbitColor[0]
+                );
+
+                glUniform1i(
+                    isOrbitLocation,
+                    true
+                );
+
+                glm::vec3 localYAxis = {
+                    0.0f,
+                    1.0f,
+                    0.0f
+                };
+
+                glm::vec3 orbitAxis =
+                    glm::normalize(celestialBodyStates[i].orbitAxis);
+
+                float dotProduct =
+                    glm::dot(localYAxis, orbitAxis);
+
+                glm::mat4 orbitModel = glm::translate(
+                    glm::mat4(1.0f),
+                    celestialBodyStates[i].position
+                );
+
+                if (dotProduct < 0.9999f)
+                {
+                    glm::vec3 tiltAxis =
+                        glm::normalize(
+                            glm::cross(
+                                localYAxis,
+                                orbitAxis
+                            )
+                        );
+
+                    float tiltAngle =
+                        glm::acos(dotProduct);
+
+                    orbitModel = glm::rotate(
+                        orbitModel,
+                        tiltAngle,
+                        tiltAxis
+                    );
+                }
+
+                orbitModel = glm::scale(
+                    orbitModel,
+                    glm::vec3(
+                        celestialBodies[s].distanceFromParent
+                    )
+                );
+
+                glUniformMatrix4fv(
+                    modelLocation,
+                    1,
+                    GL_FALSE,
+                    &orbitModel[0][0]
+                );
+
+                glDrawArrays(
+                    GL_LINE_LOOP,
+                    0,
+                    30
+                );
+            }
         }
 
         // Planets
