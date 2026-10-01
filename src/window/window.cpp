@@ -31,7 +31,7 @@ GLFWwindow* createWindow(
         width,
         height,
         title,
-        nullptr,
+        nullptr, 
         nullptr
     );
 
